@@ -4,8 +4,23 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
+Route::get('/check-in', function () {
+    return view('check-in');
+});
+Route::get('/register/internship', function () {
+    return view('register.internship');
+});
+Route::get('/register/recurring', function () {
+    return view('register.recurring');
+});
+Route::get('/register/one-time', function () {
+    return view('register.one-time');
+});
+
+Route::view('/internship/success', 'register.success.internship')->name('internship.success');
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
