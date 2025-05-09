@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" data-theme="light">
 
 <head>
     <meta charset="utf-8">
@@ -15,16 +15,18 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="font-sans text-gray-900 antialiased">
+<body class="font-poppins text-gray-900 antialiased">
 
     <header class="absolute top-0 left-0 right-0 z-10 bg-white/90 border-b">
-        <div class="max-w-7xl mx-auto flex justify-between items-center">
+        <div class="w-full mx-auto flex justify-between items-center">
             @include('components.header')
         </div>
     </header>
     <div class="pt-24">
         {{ $slot }}
     </div>
+
+    @include('layouts.footer')
 
     <script src="{{ asset('assets/vendors/fontawesome/js/all.min.js') }}" defer></script>
     <script src="{{ asset('assets/js/script.js') }}"></script>

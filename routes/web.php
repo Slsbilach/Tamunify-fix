@@ -1,23 +1,22 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RegisterVisitorController;
 
 Route::get('/', function () {
     return view('home');
-});
+})->name('home');
 Route::get('/check-in', function () {
     return view('check-in');
-});
-Route::get('/register/internship', function () {
-    return view('register.internship');
-});
-Route::get('/register/recurring', function () {
-    return view('register.recurring');
-});
-Route::get('/register/one-time', function () {
-    return view('register.one-time');
-});
+})->name('checkin');
+Route::get('/one-time', [RegisterVisitorController::class, 'registerOneTime'])->name('register.one-time');
+Route::get('/recurring', [RegisterVisitorController::class, 'registerRecurring'])->name('register.recurring');
+Route::get('/internship', [RegisterVisitorController::class, 'registerInternship'])->name('register.internship');
+
+Route::get('/one-time/success', [RegisterVisitorController::class, 'successOneTime'])->name('success.one-time');
+
+Route::post('/one-time', [RegisterVisitorController::class, 'storeOneTime'])->name('store.one-time');
 
 Route::view('/internship/success', 'register.success.internship')->name('internship.success');
 
@@ -32,4 +31,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

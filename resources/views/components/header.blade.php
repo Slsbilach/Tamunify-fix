@@ -42,14 +42,14 @@
             </a>
 
             <div class="flex items-center">
-                @if (Route::currentRouteName() == 'home')
+                {{-- @if (Route::currentRouteName() == 'home')
                 <a href="{{ route('admin.login') }}">
                     <button
                         class="bg-transparent border-0 text-transparent hover:text-white hover:bg-[#006838] active:bg-[#006838]/20 focus:bg-[#006838]/20 focus:text-white focus:ring-2 focus:ring-[#006838]/30 active:border active:border-[#006838] transition-all duration-300 px-4 py-2 rounded">
                         Admin Login
                     </button>
                 </a>
-                @endif
+                @endif --}}
             </div>
         </div>
     </div>

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\PurposeType;
+use App\Enums\DepartmentType;
 use Illuminate\Database\Eloquent\Model;
 
 class VisitorGeneral extends Model
@@ -25,9 +26,8 @@ class VisitorGeneral extends Model
     protected $casts = [
         'visit_date' => 'date',
         'exit_date' => 'date',
-        'visit_time' => 'time',
-        'exit_time' => 'time',
-        'purpose' => PurposeType::class
+        'purpose' => PurposeType::class,
+        'department' => DepartmentType::class,
     ];
 
     public function visitor()
