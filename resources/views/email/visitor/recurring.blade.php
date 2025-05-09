@@ -15,21 +15,20 @@
             Data kunjungan Anda telah terdaftar.
         </p>
 
-        <div style="text-align: center; margin: 20px 0;">
-            {!! $qrCode !!}
-        </div>
 
-        <h4>Informasi Kunjungan:</h4>
-        <p>Tanggal: {{ $visitor->general->visit_date->format('d-m-Y') }}</p>
-        <p>Waktu: {{ $visitor->general->visit_time }}</p>
+        <h4>Status Pendaftaran: Menunggu Persetujuan</h4>
+        <p>Pendaftaran akses berulang Anda sedang dalam proses review. Kami akan mengirimkan email konfirmasi dalam 1-3
+            hari kerja.</p>
+        <p>Cek email Anda secara berkala untuk informasi selanjutnya</p>
 
-        <h4>Petunjuk:</h4>
+        <h4>Langkah Selanjutnya:</h4>
         <ul>
-            <li>Tunjukkan QR Code ini kepada petugas keamanan di gerbang</li>
-            <li>QR Code hanya berlaku satu kali pada tanggal tersebut</li>
-            <li>Bawa identitas diri (KTP/SIM)</li>
-            <li>Kartu akses magang aktif selama masa magang</li>
-            <li>Patuhi semua peraturan keamanan perusahaan</li>
+            <li>Tim kami akan mereview pendaftaran Anda</li>
+            <li>Jika disetujui, Anda akan menerima email konfirmasi dengan detail pengambilan kartu akses</li>
+            <li>Kartu akses akan disiapkan dan dapat diambil di resepsionis utama</li>
+            <li>Bawa identitas diri (KTP/SIM) saat pengambilan kartu akses</li>
+            <li>Kartu akses akan aktif selama periode yang disetujui dan sesuai jadwal yang ditentukan</li>
+            <li>Kartu akses harus digunakan untuk check-in dan check-out setiap kunjungan</li>
         </ul>
 
         <p style="text-align: center; margin-top: 30px;">

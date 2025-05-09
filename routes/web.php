@@ -16,9 +16,11 @@ Route::get('/internship', [RegisterVisitorController::class, 'registerInternship
 
 Route::get('/one-time/success', [RegisterVisitorController::class, 'successOneTime'])->name('success.one-time');
 Route::get('/internship/success', [RegisterVisitorController::class, 'successInternship'])->name('success.internship');
+Route::get('/recurring/success', [RegisterVisitorController::class, 'successRecurring'])->name('success.recurring');
 
 Route::post('/one-time', [RegisterVisitorController::class, 'storeOneTime'])->name('store.one-time');
 Route::post('/internship', [RegisterVisitorController::class, 'storeInternship'])->name('store.internship');
+Route::post('/recurring', [RegisterVisitorController::class, 'storeRecurring'])->name('store.recurring');
 
 
 Route::get('/dashboard', function () {

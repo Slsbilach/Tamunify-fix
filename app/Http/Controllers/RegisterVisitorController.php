@@ -7,6 +7,7 @@ use App\Models\Visitor;
 use App\Enums\VisitorType;
 use Illuminate\Http\Request;
 use App\Models\VisitorGeneral;
+use App\Models\VisitorRecurring;
 use App\Models\VisitorInternship;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\VisitorRegisteredUserMail;
@@ -177,6 +178,74 @@ class RegisterVisitorController extends Controller
             'visitor' => $visitor,
         ]);
     }
+    public function storeRecurring(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:70',
+            'company' => 'nullable|string|max:255',
+            'recurring_type' => 'required|string',
+            'related_to' => 'required|string|max:70',
+            'relation' => 'required|string',
+            'department' => 'required|string',
+            'access_start' => 'required|date',
+            'access_end' => 'required|date|after_or_equal:access_start',
+            'vehicle_number' => 'nullable|string',
+            'visit_days' => 'required|array|min:1',
+            'visit_days.*' => 'in:Senin,Selasa,Rabu,Kamis,Jumat,Sabtu,Minggu',
+            'usual_entry_time' => 'required',
+            'usual_exit_time' => 'required',
+            'additional_info' => 'nullable|string',
+        ]);
+
+        $validated['status'] = 'Pending';
+        $validated['type'] = VisitorType::TAMU_BERULANG;
+
+
+        $fileFilename = null;
+        if ($request->hasFile('photo')) {
+            $fileFilename = time() . '.' . $request->file('photo')->getClientOriginalExtension();
+            $request->file('photo')->storeAs('visitor/photo', $fileFilename);
+        }
+
+        $visitor = Visitor::create([
+            'name' => $validated['name'],
+            'identity_number' => $validated['identity_number'],
+            'photo' => $fileFilename,
+            'phone' => $validated['phone'],
+            'status' => $validated['status'],
+            'type' => $validated['type'],
+            'email' => $validated['email'],
+        ]);
+
+
+        // Simpan ke database
+        VisitorRecurring::create([
+            'visitor_id' => $visitor->id,
+            'company' => $validated['company'],
+            'recurring_type' => $validated['recurring_type'],
+            'related_to' => $validated['related_to'],
+            'relation' => $validated['relation'],
+            'access_start' => $validated['access_start'],
+            'access_end' => $validated['access_end'],
+            'department' => $validated['department'],
+            'vehicle_number' => $validated['vehicle_number'],
+            'internship_end' => $validated['internship_end'],
+            'usual_entry_time' => $validated['usual_entry_time'],
+            'usual_exit_time' => $validated['usual_exit_time'],
+            'visit_days' => json_encode($validated['visit_days']),
+            'additional_info' => $validated['additional_info'],
+        ]);
+        $users = User::where('department', $validated['department'])->get();
+
+        foreach ($users as $user) {
+            $user->notify(new RegisterNotification($visitor));
+        }
+        Mail::to($visitor->email)->send(new VisitorRegisteredUserMail($visitor, '-'));
+
+        return redirect('/recurring/success')->with('data', [
+            'visitor' => $visitor,
+        ]);
+    }
 
     public function successOneTime()
     {
@@ -186,5 +255,10 @@ class RegisterVisitorController extends Controller
     public function successInternship()
     {
         return view('register.success.internship');
+    }
+
+    public function successRecurring()
+    {
+        return view('register.success.recurring');
     }
 }

@@ -141,7 +141,7 @@
                                 <x-input.text-input id="emergency_contact_name" class="mt-1 w-full" type="text"
                                     name="emergency_contact_name" :value="old('emergency_contact_name')" required
                                     autofocus autocomplete="emergency_contact_name"
-                                    placeholder="Masukan nomor telepon" />
+                                    placeholder="Masukan nama kontak darurat" />
                                 <x-input.input-error :messages="$errors->get('emergency_contact_name')" class="mt-2" />
                             </div>
                             <div class="mb-4">
@@ -149,7 +149,7 @@
                                 <x-input.text-input id="emergency_contact_phone" class="mt-1 w-full" type="number"
                                     name="emergency_contact_phone" :value="old('emergency_contact_phone')" required
                                     autofocus autocomplete="emergency_contact_phone"
-                                    placeholder="Masukan nomor telepon" />
+                                    placeholder="Masukan nomor telepon darurat" />
                                 <x-input.input-error :messages="$errors->get('emergency_contact_phone')" class="mt-2" />
                             </div>
 

@@ -13,7 +13,7 @@ return new class extends Migration {
         Schema::create('visitor_recurrings', function (Blueprint $table) {
             $table->id();
             $table->foreignId('visitor_id')->constrained()->onDelete('cascade');
-            $table->string('company');
+            $table->string('company')->nullable();
             $table->enum('recurring_type', ['Orang Tua/Wali Peserta Magang', 'Vendor/Supplier Rutin', 'Mitra Bisnis', 'Kontraktor', 'Lainnya']);
             $table->string('related_to');
             $table->enum('relation', ['Orang Tua', 'Vendor', 'Mitra', 'Kontraktor', 'Lainnya']);

@@ -11,12 +11,12 @@
             <div class="text-center p-6">
                 <i class="fa-solid fa-circle-check mx-auto h-16 w-16 text-green-600 mb-4"></i>
 
-                <h2 class="text-2xl font-semibold">Pendaftaran Magang Berhasil!</h2>
+                <h2 class="text-2xl font-semibold">Pendaftaran Akses Berulang Berhasil!!</h2>
             </div>
 
             <div class="text-center p-6">
                 <p class="text-gray-600 mb-6">
-                    Data pendaftaran magang Anda telah berhasil disubmit. Tim kami akan memproses pendaftaran Anda.
+                    Data pendaftaran akses berulang Anda telah berhasil disubmit. Tim kami akan memproses pendaftaran Anda.
                 </p>
 
                 <div class="bg-[#006838] border border-[#006838] rounded-lg p-4 mb-6 text-green-100 ">
@@ -32,8 +32,7 @@
                                 d="M9 12h6m-6 4h6M5 8h14M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8" />
                         </svg>
                         <p class="text-sm mb-4 text-green-100 ">
-                            Pendaftaran anda sedang dalam proses review oleh departemen terkait. Kami akan mengirimkan
-                            email konfirmasi dalam 24 jam kerja.
+                            Pendaftaran akses berulang Anda sedang dalam proses review. Kami akan mengirimkan email konfirmasi dalam 1-3 hari kerja.
                         </p>
                     </div>
 
@@ -51,20 +50,17 @@
                     <p class="font-medium">Langkah Selanjutnya:</p>
                     <ul class="list-disc list-outside pl-5 space-y-1">
                         <li>Tim kami akan mereview pendaftaran Anda</li>
-                        <li>Jika disetujui, Anda akan menerima email konfirmasi dengan detail selanjutnya</li>
-                        <li>Anda akan diminta untuk mengambil kartu akses magang pada hari pertama</li>
-                        <li>Kartu akses magang akan aktif selama periode magang yang disetujui</li>
-                        <li>Orang tua/wali yang akan mengantar-jemput dapat mendaftar sebagai tamu berulang</li>
+                        <li>Jika disetujui, Anda akan menerima email konfirmasi dengan detail pengambilan kartu akses</li>
+                        <li>Kartu akses akan disiapkan dan dapat diambil di resepsionis utama</li>
+                        <li>Bawa identitas diri (KTP/SIM) saat pengambilan kartu akses</li>
+                        <li>Kartu akses akan aktif selama periode yang disetujui dan sesuai jadwal yang ditentukan</li>
+                        <li>Kartu akses harus digunakan untuk check-in dan check-out setiap kunjungan</li>
                     </ul>
                 </div>
 
             </div>
 
             <div class="flex flex-col gap-2 p-6 border-t">
-                <a href="{{ route('register.recurring') }}" class="w-full">
-                    <button class="w-full border border-gray-300 hover:bg-gray-100 py-2 rounded-md">Daftar Akses untuk
-                        Orang Tua/Wali</button>
-                </a>
                 <a href="{{ route('home') }}" class="w-full mt-2">
                     <button class="w-full text-gray-700 hover:underline py-2">Kembali ke Beranda</button>
                 </a>

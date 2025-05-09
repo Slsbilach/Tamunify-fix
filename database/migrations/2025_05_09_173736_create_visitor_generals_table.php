@@ -13,7 +13,7 @@ return new class extends Migration {
         Schema::create('visitor_generals', function (Blueprint $table) {
             $table->id();
             $table->foreignId('visitor_id')->constrained()->onDelete('cascade');
-            $table->string('company');
+            $table->string('company')->nullable();
             $table->enum('purpose', ['Rapat / Meeting', 'Pengiriman / Delivery', 'Maintenance', 'Interview', 'Lainnya']);
             $table->string('person_to_meet');
             $table->enum('department', ['Produksi', 'Engineering', 'HRD', 'Keuangan', 'Marketing', 'IT', 'lainnya']);
