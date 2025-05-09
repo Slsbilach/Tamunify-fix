@@ -19,7 +19,7 @@
                         vendor, dll)</p>
                 </div>
 
-                <form action="{{ route('store.internship') }}" method="POST" enctype="multipart/form-data" class="p-6">
+                <form action="{{ route('store.recurring') }}" method="POST" enctype="multipart/form-data" class="p-6">
                     @csrf
 
                     {{-- Data Diri --}}
@@ -149,7 +149,7 @@
                             <div class="mb-4">
                                 <x-input.input-label for="vehicle_number" :value="__('Nomor Kendaraan (Opsional)')" />
                                 <x-input.text-input id="vehicle_number" class="mt-1 w-full" type="text"
-                                    name="vehicle_number" :value="old('vehicle_number')" required autofocus
+                                    name="vehicle_number" :value="old('vehicle_number')" autofocus
                                     autocomplete="vehicle_number"
                                     placeholder="Masukan nomor kendaraan jika membawa kendaraan" />
                             </div>

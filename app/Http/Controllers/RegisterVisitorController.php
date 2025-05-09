@@ -182,6 +182,9 @@ class RegisterVisitorController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:70',
+            'identity_number' => 'required|string|max:50',
+            'phone' => 'required|string|max:20',
+            'email' => 'required|email|max:70',
             'company' => 'nullable|string|max:255',
             'recurring_type' => 'required|string',
             'related_to' => 'required|string|max:70',
@@ -195,6 +198,7 @@ class RegisterVisitorController extends Controller
             'usual_entry_time' => 'required',
             'usual_exit_time' => 'required',
             'additional_info' => 'nullable|string',
+            'photo' => 'nullable|image|max:2048',
         ]);
 
         $validated['status'] = 'Pending';
@@ -229,7 +233,6 @@ class RegisterVisitorController extends Controller
             'access_end' => $validated['access_end'],
             'department' => $validated['department'],
             'vehicle_number' => $validated['vehicle_number'],
-            'internship_end' => $validated['internship_end'],
             'usual_entry_time' => $validated['usual_entry_time'],
             'usual_exit_time' => $validated['usual_exit_time'],
             'visit_days' => json_encode($validated['visit_days']),

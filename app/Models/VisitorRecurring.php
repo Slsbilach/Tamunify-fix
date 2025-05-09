@@ -31,8 +31,6 @@ class VisitorRecurring extends Model
         'visit_days' => 'array',
         'access_start' => 'date',
         'access_end' => 'date',
-        'usual_entry_time' => 'time',
-        'usual_exit_time' => 'time',
         'recurring_type' => RecurringType::class,
         'relation' => RelationType::class,
         'department' => DepartmentType::class,
