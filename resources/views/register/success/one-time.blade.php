@@ -62,8 +62,8 @@
                 </a>
             </div>
             @else
-            <div class="text-center p-6 border-b">
-                <i class="fa-solid fa-circle-check mx-auto h-16 w-16 text-green-600 mb-4"></i>
+            <div class="text-center p-6">
+                <i class="fa-solid fa-circle-xmark mx-auto h-16 w-16 text-green-600 mb-4"></i>
 
                 <h2 class="text-2xl font-semibold">Uppss Anda Belum Melakukan Pendaftaran!</h2>
             </div>

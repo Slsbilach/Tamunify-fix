@@ -39,14 +39,33 @@ class VisitorRegisteredUserMail extends Mailable
      */
     public function content(): Content
     {
-        return new Content(
-            view: 'email.visitor.one-time',
-            with: [
-                'visitor' => $this->visitor,
-                'qrCode' => $this->qrCode,
-            ]
-        );
+        if ($this->visitor->type->value == 'Tamu Umum') {
+            return new Content(
+                view: 'email.visitor.one-time',
+                with: [
+                    'visitor' => $this->visitor,
+                    'qrCode' => $this->qrCode,
+                ]
+            );
+        } else if ($this->visitor->type->value == 'Magang') {
+            return new Content(
+                view: 'email.visitor.internship',
+                with: [
+                    'visitor' => $this->visitor,
+                ]
+            );
+        } else {
+            return new Content(
+                view: 'email.visitor.recurring',
+                with: [
+                    'visitor' => $this->visitor,
+                ]
+            );
+        }
+
+
     }
+
 
     /**
      * Get the attachments for the message.

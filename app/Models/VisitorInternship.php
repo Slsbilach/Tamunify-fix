@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class VisitorInternship extends Model
 {
-    protected $filable = [
+    protected $fillable = [
         'visitor_id',
         'institution',
         'internship_start',

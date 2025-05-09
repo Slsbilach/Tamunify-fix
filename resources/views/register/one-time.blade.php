@@ -1,3 +1,5 @@
+@section('title', 'Pendaftaran Tamu Umum')
+
 <x-guest-layout>
     <div class="min-h-screen bg-gray-50 py-8 px-4 p-20">
         <div class="container mx-auto max-w-3xl">
@@ -70,6 +72,7 @@
                                     </option>
                                     @endforeach
                                 </x-input.select-input>
+                                <x-input.input-error :messages="$errors->get('purpose')" class="mt-2" />
                             </div>
                             <div class="mb-4">
                                 <x-input.input-label for="person_to_meet" :value="__('Orang yang ingin anda temui')" />
@@ -91,6 +94,7 @@
                                     </option>
                                     @endforeach
                                 </x-input.select-input>
+                                <x-input.input-error :messages="$errors->get('department')" class="mt-2" />
                             </div>
                             <div class="mb-4">
                                 <x-input.input-label for="visit_date" :value="__('Tanggal Kunjungan')" />
