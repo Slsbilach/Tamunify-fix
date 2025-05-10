@@ -41,8 +41,8 @@ $unreadNotifications = auth()->user()->unreadNotifications()->count();
             class="flex items-center px-4 py-3 {{ $activePage == 'reports' ? 'bg-[#005028] rounded-md' : 'text-green-100 hover:bg-[#005028] rounded-md' }}">
             <i class="fas fa-chart-bar mr-3 w-5"></i> Laporan
         </a>
-        <a href="#"
-            class="flex items-center px-4 py-3 {{ $activePage == 'manage-admins' ? 'bg-[#005028] rounded-md' : 'text-green-100 hover:bg-[#005028] rounded-md' }}">
+        <a href="{{ route('admin.index') }}"
+            class="flex items-center px-4 py-3 {{ Request::is('dashboard/admin') ? 'bg-[#005028] rounded-md' : 'text-green-100 hover:bg-[#005028] rounded-md' }}">
             <i class="fas fa-user-cog mr-3 w-5"></i> Kelola Admin
         </a>
         <a href="#"

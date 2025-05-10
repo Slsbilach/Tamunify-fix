@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\NotificationController;
@@ -40,6 +41,8 @@ Route::middleware('auth')->prefix('dashboard')->group(function () {
         Auth::user()->unreadNotifications->markAsRead();
         return back()->with('success', 'Semua notifikasi telah ditandai sebagai sudah dibaca.');
     })->name('notifications.markAsRead');
+
+    Route::resource('/admin', AdminController::class)->except('show');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
