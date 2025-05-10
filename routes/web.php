@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\RegisterVisitorController;
 
 Route::get('/', function () {
@@ -23,11 +24,14 @@ Route::post('/internship', [RegisterVisitorController::class, 'storeInternship']
 Route::post('/recurring', [RegisterVisitorController::class, 'storeRecurring'])->name('store.recurring');
 
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::middleware('auth')->prefix('dashboard')->group(function () {
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
+    Route::get('/get/visitor/{id}', [DashboardController::class, 'getVisitor'])->name('dashboard.getVisitor');
+    Route::post('/export', [DashboardController::class, 'export'])->name('dashboard.export');
+    Route::post('/update-status/{id}', [DashboardController::class, 'updateStatus']);
+    Route::delete('/destroy/{visitor}', [DashboardController::class, 'destroy'])->name('dashboard.destroy');
+    Route::post('/process-qr-code', [DashboardController::class, 'process']);
 
-Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

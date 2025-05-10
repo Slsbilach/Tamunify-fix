@@ -22,13 +22,34 @@
 </head>
 
 <body class="font-poppins antialiased">
-    <div class="min-h-screen bg-base-100">
-        @include('layouts.navigation')
+    <div class="flex min-h-screen relative">
+        {{--
+        <x-background /> --}}
+        @include('layouts.sidebar')
+        <div class="flex-1 bg-transparent relative z-10 flex flex-col">
 
-        <!-- Page Content -->
-        <main class="py-24 main-content">
-            {{ $slot }}
-        </main>
+            <header class="bg-white/90 border-b px-6 py-4">
+                <div class="flex justify-between items-center">
+                    <div class="flex items-center gap-4">
+                        <h1 class="text-xl font-bold text-[#006838]">@yield('header')</h1>
+                    </div>
+                    <div class="flex items-center space-x-4">
+
+                        <a href="{{ route('home') }}">
+                            <x-button.default-button
+                                class="border-[#006838] text-white bg-[#006838] hover:bg-[#005830]">
+                                Kembali ke Beranda
+                            </x-button.default-button>
+                        </a>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Page Content -->
+            <main class="main-content">
+                {{ $slot }}
+            </main>
+        </div>
     </div>
     <script src="{{ asset('assets/js/jquery-3.6.3.min.js') }}"></script>
     <script src="{{ asset('assets/js/script.js') }}"></script>
@@ -43,17 +64,11 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.6/jquery.inputmask.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
     <script>
         new DataTable('#myTable');
         $(document).ready(function() {
             $('.select2').select2();
-        });
-    </script>
-    <script>
-        document.querySelector('.theme-controller').addEventListener('change', function() {
-            const theme = this.checked ? 'dark' : 'light';
-            document.documentElement.setAttribute('data-theme', theme);
-            localStorage.setItem('theme', theme);
         });
     </script>
     <script>

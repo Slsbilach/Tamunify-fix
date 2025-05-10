@@ -73,7 +73,7 @@ class RegisterVisitorController extends Controller
         ]);
 
         $qrImageName = 'qr_' . $visitor->id . '.png';
-        QrCode::format('png')->size(100)->color(21, 128, 61)->generate($visitor->uuid, Storage::path('qrcodes/' . $qrImageName));
+        QrCode::format('png')->size(500)->color(21, 128, 61)->generate($visitor->uuid, Storage::path('qrcodes/' . $qrImageName));
         $qrCode = QrCode::size(100)->color(21, 128, 61)->generate($visitor->uuid);
 
 
@@ -92,7 +92,7 @@ class RegisterVisitorController extends Controller
             'vehicle_number' => $validated['vehicle_number'],
             'additional_info' => $validated['additional_info'],
         ]);
-        $users = User::all();
+        $users = User::where('department', $validated['department'])->get();
 
         foreach ($users as $user) {
             $user->notify(new RegisterNotification($visitor));
@@ -167,7 +167,7 @@ class RegisterVisitorController extends Controller
             'referral_letter' => $suratPengantar,
             'additional_info' => $validated['additional_info'],
         ]);
-        $users = User::all();
+        $users = User::where('department', $validated['department'])->get();
 
         foreach ($users as $user) {
             $user->notify(new RegisterNotification($visitor));
