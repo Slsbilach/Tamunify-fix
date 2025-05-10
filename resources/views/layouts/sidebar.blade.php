@@ -29,8 +29,8 @@ $unreadNotifications = auth()->user()->unreadNotifications()->count();
             </span>
             @endif
         </a>
-        <a href="#"
-            class="flex items-center px-4 py-3 {{ $activePage == 'visitors' ? 'bg-[#005028] rounded-md' : 'text-green-100 hover:bg-[#005028] rounded-md' }}">
+        <a href="{{ route('visitor.index') }}"
+            class="flex items-center px-4 py-3 {{ Request::is('dashboard/visitor') ? 'bg-[#005028] rounded-md' : 'text-green-100 hover:bg-[#005028] rounded-md' }}">
             <i class="fas fa-users mr-3 w-5"></i> Tamu
         </a>
         {{-- <a href="#"

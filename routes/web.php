@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\VisitorController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\RegisterVisitorController;
@@ -43,6 +44,7 @@ Route::middleware('auth')->prefix('dashboard')->group(function () {
     })->name('notifications.markAsRead');
 
     Route::resource('/admin', AdminController::class)->except('show');
+    Route::resource('/visitor', VisitorController::class)->except('show');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

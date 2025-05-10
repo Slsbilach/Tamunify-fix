@@ -19,8 +19,6 @@
                             Tambah Data
                         </x-button.primary-button>
                     </a>
-
-
                 </div>
                 <div class="flex justify-start space-x-4">
                     <div class="mt-4">
