@@ -82,6 +82,9 @@
     </div>
     @endif
     @if ($visitor->internship)
-    <a href="{{ url('storage/referral_letter/' . $visitor->internship->referral_letter) }}">Unduh</a>
+    <div>
+        <h1 class="text-[#006838] font-semibold">Surat Pengantar</h1>
+        <a href="{{ url('storage/visitor/referral_letter/' . $visitor->internship->referral_letter) }}">Unduh</a>
+    </div>
     @endif
 </div>

@@ -2,32 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Visitor;
 use Illuminate\Http\Request;
 use App\Exports\VisitorExport;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Mail\VisitorConfirmationMail;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
+use App\Notifications\ConfirmationNotification;
 
 class DashboardController extends Controller
 {
     public function index(Request $request)
     {
-        $department = Auth::user()->department;
 
         if ($request->ajax()) {
-            $visitors = Visitor::query()->with(['general', 'internship', 'recurring'])->where(function ($query) use ($department) {
-                $query->whereHas('general', function ($q) use ($department) {
-                    $q->where('department', $department);
-                })
-                    ->orWhereHas('internship', function ($q) use ($department) {
-                        $q->where('department', $department);
-                    })
-                    ->orWhereHas('recurring', function ($q) use ($department) {
-                        $q->where('department', $department);
-                    });
-            });
+            $visitors = Visitor::query()->with(['general', 'internship', 'recurring']);
 
             if ($request->has('status') && $request->input('status') != 'All' && $request->input('status') != NULL) {
                 $status = $request->input('status');
@@ -44,87 +37,39 @@ class DashboardController extends Controller
 
 
         $totalVisitorToday = Visitor::whereDate('created_at', now())
-            ->where(function ($query) use ($department) {
-                $query->whereHas('general', function ($q) use ($department) {
-                    $q->where('department', $department);
-                })
-                    ->orWhereHas('internship', function ($q) use ($department) {
-                        $q->where('department', $department);
-                    })
-                    ->orWhereHas('recurring', function ($q) use ($department) {
-                        $q->where('department', $department);
-                    });
-            })->count();
+            ->count();
 
         $visitorActive = Visitor::where('status', 'Active')
-            ->where(function ($query) use ($department) {
-                $query->whereHas('general', function ($q) use ($department) {
-                    $q->where('department', $department);
-                })
-                    ->orWhereHas('internship', function ($q) use ($department) {
-                        $q->where('department', $department);
-                    })
-                    ->orWhereHas('recurring', function ($q) use ($department) {
-                        $q->where('department', $department);
-                    });
-            })
             ->count();
         $internshipActive = Visitor::where('status', 'Active')->where('type', 'Magang')
-            ->where(function ($query) use ($department) {
-                $query->whereHas('general', function ($q) use ($department) {
-                    $q->where('department', $department);
-                })
-                    ->orWhereHas('internship', function ($q) use ($department) {
-                        $q->where('department', $department);
-                    })
-                    ->orWhereHas('recurring', function ($q) use ($department) {
-                        $q->where('department', $department);
-                    });
-            })->count();
+            ->count();
         $recurringActive = Visitor::where('status', 'Active')->where('type', 'Tamu Berulang')
-            ->where(function ($query) use ($department) {
-                $query->whereHas('general', function ($q) use ($department) {
-                    $q->where('department', $department);
-                })
-                    ->orWhereHas('internship', function ($q) use ($department) {
-                        $q->where('department', $department);
-                    })
-                    ->orWhereHas('recurring', function ($q) use ($department) {
-                        $q->where('department', $department);
-                    });
-            })->count();
+            ->count();
 
         // Tamu Umum
         $generalCount = Visitor::where('status', 'Active')
-            ->whereHas('general', fn($q) => $q->where('department', $department))
+            ->where('type', 'Tamu Umum')
             ->count();
 
         // Peserta Magang
         $internshipCount = Visitor::where('status', 'Active')
             ->where('type', 'Magang')
-            ->whereHas('internship', fn($q) => $q->where('department', $department))
             ->count();
 
         // Tamu Berulang
         $recurringCount = Visitor::where('status', 'Active')
             ->where('type', 'Tamu Berulang')
-            ->whereHas('recurring', fn($q) => $q->where('department', $department))
             ->count();
 
         // Total Tamu Aktif dari semua relasi dengan departemen sesuai user
         $totalActive = Visitor::where('status', 'Active')
-            ->where(function ($query) use ($department) {
-                $query->whereHas('general', fn($q) => $q->where('department', $department))
-                    ->orWhereHas('internship', fn($q) => $q->where('department', $department))
-                    ->orWhereHas('recurring', fn($q) => $q->where('department', $department));
-            })
             ->count();
 
         // Rata-rata durasi kunjungan
         $durations = [];
 
         $generalVisitors = Visitor::where('status', 'Active')
-            ->whereHas('general', fn($q) => $q->where('department', $department))
+            ->where('type', 'Tamu Umum')
             ->with('general')->get();
 
         foreach ($generalVisitors as $visitor) {
@@ -163,6 +108,18 @@ class DashboardController extends Controller
         $visitor = Visitor::findOrFail($id);
         $visitor->status = $request->status;
         $visitor->save();
+
+        $users = User::all();
+
+        if ($visitor->type->value != 'Tamu Umum') {
+            if ($visitor->status != 'Pending' || $visitor->status != 'Inactive') {
+                foreach ($users as $user) {
+                    $user->notify(new ConfirmationNotification($visitor));
+                }
+                Mail::to($visitor->email)->send(new VisitorConfirmationMail($visitor));
+            }
+        }
+
 
         return response()->json(['success' => true]);
     }

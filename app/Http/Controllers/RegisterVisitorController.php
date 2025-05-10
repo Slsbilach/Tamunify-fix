@@ -92,12 +92,12 @@ class RegisterVisitorController extends Controller
             'vehicle_number' => $validated['vehicle_number'],
             'additional_info' => $validated['additional_info'],
         ]);
-        $users = User::where('department', $validated['department'])->get();
+        $users = User::all();
 
         foreach ($users as $user) {
             $user->notify(new RegisterNotification($visitor));
         }
-        Mail::to($visitor->email)->send(new VisitorRegisteredUserMail($visitor, $qrCode));
+        // Mail::to($visitor->email)->send(new VisitorRegisteredUserMail($visitor, $qrCode));
 
         return redirect('/one-time/success')->with('data', [
             'qrCode' => $qrCode,
@@ -138,8 +138,8 @@ class RegisterVisitorController extends Controller
 
         $suratPengantar = null;
         if ($request->hasFile('referral_letter')) {
-            $suratPengantar = time() . '.' . $request->file('referral_letter')->getClientOriginalExtension();
-            $request->file('referral_letter')->storeAs('visitor/referral_letter', $fileFilename);
+            $suratPengantar = time() . '.pdf';
+            $request->file('referral_letter')->storeAs('visitor/referral_letter', $suratPengantar);
         }
 
         $visitor = Visitor::create([
@@ -167,7 +167,7 @@ class RegisterVisitorController extends Controller
             'referral_letter' => $suratPengantar,
             'additional_info' => $validated['additional_info'],
         ]);
-        $users = User::where('department', $validated['department'])->get();
+        $users = User::all();
 
         foreach ($users as $user) {
             $user->notify(new RegisterNotification($visitor));
@@ -238,7 +238,7 @@ class RegisterVisitorController extends Controller
             'visit_days' => json_encode($validated['visit_days']),
             'additional_info' => $validated['additional_info'],
         ]);
-        $users = User::where('department', $validated['department'])->get();
+        $users = User::all();
 
         foreach ($users as $user) {
             $user->notify(new RegisterNotification($visitor));

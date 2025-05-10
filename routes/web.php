@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\RegisterVisitorController;
 
 Route::get('/', function () {
@@ -31,6 +32,14 @@ Route::middleware('auth')->prefix('dashboard')->group(function () {
     Route::post('/update-status/{id}', [DashboardController::class, 'updateStatus']);
     Route::delete('/destroy/{visitor}', [DashboardController::class, 'destroy'])->name('dashboard.destroy');
     Route::post('/process-qr-code', [DashboardController::class, 'process']);
+
+
+
+    Route::get('/notification', [NotificationController::class, 'index'])->name('notification.index');
+    Route::post('/notifications/read', function () {
+        Auth::user()->unreadNotifications->markAsRead();
+        return back()->with('success', 'Semua notifikasi telah ditandai sebagai sudah dibaca.');
+    })->name('notifications.markAsRead');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

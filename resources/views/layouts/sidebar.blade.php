@@ -15,15 +15,11 @@ $unreadNotifications = auth()->user()->unreadNotifications()->count();
     {{-- Navigation --}}
     <nav class="space-y-1 text-sm">
         <a href="{{ route('dashboard.index') }}"
-            class="flex items-center px-4 py-3 {{ $activePage === 'dashboard' ? 'bg-[#005028] rounded-md' : 'text-green-100 hover:bg-[#005028] rounded-md' }}">
+            class="flex items-center px-4 py-3 {{ Request::is('dashboard') ? 'bg-[#005028] rounded-md' : 'text-green-100 hover:bg-[#005028] rounded-md' }}">
             <i class="fas fa-home mr-3 w-5"></i> Dashboard
         </a>
-        <a href="#"
-            class="flex items-center px-4 py-3 {{ $activePage === 'visitors' ? 'bg-[#005028] rounded-md' : 'text-green-100 hover:bg-[#005028] rounded-md' }}">
-            <i class="fas fa-users mr-3 w-5"></i> Tamu
-        </a>
-        <a href="#"
-            class="flex items-center justify-between px-4 py-3 {{ $activePage === 'notifications' ? 'bg-[#005028] rounded-md' : 'text-green-100 hover:bg-[#005028] rounded-md' }}">
+        <a href="{{ route('notification.index') }}"
+            class="flex items-center justify-between px-4 py-3 {{ Request::is('dashboard/notification') ? 'bg-[#005028] rounded-md' : 'text-green-100 hover:bg-[#005028] rounded-md' }}">
             <div class="flex items-center">
                 <i class="fas fa-bell mr-3 w-5"></i> Notifikasi
             </div>
@@ -34,19 +30,23 @@ $unreadNotifications = auth()->user()->unreadNotifications()->count();
             @endif
         </a>
         <a href="#"
-            class="flex items-center px-4 py-3 {{ $activePage === 'schedule' ? 'bg-[#005028] rounded-md' : 'text-green-100 hover:bg-[#005028] rounded-md' }}">
-            <i class="fas fa-calendar-alt mr-3 w-5"></i> Jadwal
+            class="flex items-center px-4 py-3 {{ $activePage == 'visitors' ? 'bg-[#005028] rounded-md' : 'text-green-100 hover:bg-[#005028] rounded-md' }}">
+            <i class="fas fa-users mr-3 w-5"></i> Tamu
         </a>
+        {{-- <a href="#"
+            class="flex items-center px-4 py-3 {{ $activePage == 'schedule' ? 'bg-[#005028] rounded-md' : 'text-green-100 hover:bg-[#005028] rounded-md' }}">
+            <i class="fas fa-calendar-alt mr-3 w-5"></i> Jadwal
+        </a> --}}
         <a href="#"
-            class="flex items-center px-4 py-3 {{ $activePage === 'reports' ? 'bg-[#005028] rounded-md' : 'text-green-100 hover:bg-[#005028] rounded-md' }}">
+            class="flex items-center px-4 py-3 {{ $activePage == 'reports' ? 'bg-[#005028] rounded-md' : 'text-green-100 hover:bg-[#005028] rounded-md' }}">
             <i class="fas fa-chart-bar mr-3 w-5"></i> Laporan
         </a>
         <a href="#"
-            class="flex items-center px-4 py-3 {{ $activePage === 'manage-admins' ? 'bg-[#005028] rounded-md' : 'text-green-100 hover:bg-[#005028] rounded-md' }}">
+            class="flex items-center px-4 py-3 {{ $activePage == 'manage-admins' ? 'bg-[#005028] rounded-md' : 'text-green-100 hover:bg-[#005028] rounded-md' }}">
             <i class="fas fa-user-cog mr-3 w-5"></i> Kelola Admin
         </a>
         <a href="#"
-            class="flex items-center px-4 py-3 {{ $activePage === 'settings' ? 'bg-[#005028] rounded-md' : 'text-green-100 hover:bg-[#005028] rounded-md' }}">
+            class="flex items-center px-4 py-3 {{ $activePage == 'settings' ? 'bg-[#005028] rounded-md' : 'text-green-100 hover:bg-[#005028] rounded-md' }}">
             <i class="fas fa-cog mr-3 w-5"></i> Pengaturan
         </a>
     </nav>

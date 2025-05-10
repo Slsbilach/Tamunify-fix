@@ -150,7 +150,7 @@
         </x-card.card-default>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <x-card.card-default class="bg-white/95 rounded-lg shadow-md border border-[#006838]/20 mb-6">
+            {{-- <x-card.card-default class="bg-white/95 rounded-lg shadow-md border border-[#006838]/20 mb-6">
                 <div class="p-6">
                     <h2 class="text-lg font-semibold">Jadwal Hari Ini</h2>
                     <div class="space-y-4">
@@ -188,7 +188,7 @@
                         </div>
                     </div>
                 </div>
-            </x-card.card-default>
+            </x-card.card-default> --}}
 
             <x-card.card-default class="bg-white/95 rounded-lg shadow-md border border-[#006838]/20 mb-6">
                 <div class="p-6">
@@ -358,7 +358,7 @@
                                     Pending: 'Menunggu',
                                     Active: 'Aktif',
                                     Inactive: 'Selesai',
-                                    Cancel: 'Batal'
+                                    Cancel: 'Tolak'
                                 };
 
                                 const colorMap = {
