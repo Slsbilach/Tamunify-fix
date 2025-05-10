@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\VisitorController;
 use App\Http\Controllers\DashboardController;
@@ -45,6 +46,20 @@ Route::middleware('auth')->prefix('dashboard')->group(function () {
 
     Route::resource('/admin', AdminController::class)->except('show');
     Route::resource('/visitor', VisitorController::class)->except('show');
+
+    Route::get('/visitor/create/one-time', [VisitorController::class, 'createOneTime'])->name('visitor.create.one-time');
+    Route::get('/visitor/create/internship', [VisitorController::class, 'createInternship'])->name('visitor.create.internship');
+    Route::get('/visitor/create/recurring', [VisitorController::class, 'createRecurring'])->name('visitor.create.recurring');
+
+    Route::post('/visitor/create/one-time', [VisitorController::class, 'storeOneTime'])->name('visitor.store.one-time');
+    Route::post('/visitor/create/internship', [VisitorController::class, 'storeInternship'])->name('visitor.store.internship');
+    Route::post('/visitor/create/recurring', [VisitorController::class, 'storeRecurring'])->name('visitor.store.recurring');
+
+    Route::put('/visitor/one-time/{visitor}', [VisitorController::class, 'updateOneTime'])->name('visitor.update.one-time');
+    Route::put('/visitor/internship/{visitor}', [VisitorController::class, 'updateInternship'])->name('visitor.update.internship');
+    Route::put('/visitor/recurring/{visitor}', [VisitorController::class, 'updateRecurring'])->name('visitor.update.recurring');
+
+    Route::get('/report', [ReportController::class, 'index'])->name('report.index');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

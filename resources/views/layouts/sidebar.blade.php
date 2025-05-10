@@ -37,8 +37,8 @@ $unreadNotifications = auth()->user()->unreadNotifications()->count();
             class="flex items-center px-4 py-3 {{ $activePage == 'schedule' ? 'bg-[#005028] rounded-md' : 'text-green-100 hover:bg-[#005028] rounded-md' }}">
             <i class="fas fa-calendar-alt mr-3 w-5"></i> Jadwal
         </a> --}}
-        <a href="#"
-            class="flex items-center px-4 py-3 {{ $activePage == 'reports' ? 'bg-[#005028] rounded-md' : 'text-green-100 hover:bg-[#005028] rounded-md' }}">
+        <a href="{{ route('report.index') }}"
+            class="flex items-center px-4 py-3 {{ Request::is('dashboard/report') ? 'bg-[#005028] rounded-md' : 'text-green-100 hover:bg-[#005028] rounded-md' }}">
             <i class="fas fa-chart-bar mr-3 w-5"></i> Laporan
         </a>
         <a href="{{ route('admin.index') }}"
