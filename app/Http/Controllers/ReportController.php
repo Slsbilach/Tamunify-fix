@@ -393,7 +393,7 @@ class ReportController extends Controller
             $internshipTotal = $internship->count();
             $internshipCheckin = $internship->where('status', 'Active')->count();
             $internshipCheckout = $internship->where('status', 'Inactive')->count();
-            $internshipDurations = collect(); // Jika durasi tidak dihitung per hari
+            $internshipDurations = collect();
 
             // === Recurring Visitors ===
             $recurring = DB::table('visitor_recurrings')
