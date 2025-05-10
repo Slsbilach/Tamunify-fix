@@ -356,7 +356,7 @@ class VisitorController extends Controller
             'additional_info' => $validated['additional_info'],
         ]);
 
-        return redirect('/dashboard/visitor')->with('success', 'Data Berhasil Ditambahkan');
+        return redirect('/dashboard/visitor')->with('success', 'Data Berhasil Diupdate');
     }
     public function updateRecurring(Request $request, Visitor $visitor)
     {
@@ -407,7 +407,7 @@ class VisitorController extends Controller
             'additional_info' => $validated['additional_info'],
         ]);
 
-        return redirect('/dashboard/visitor')->with('success', 'Data Berhasil Ditambahkan');
+        return redirect('/dashboard/visitor')->with('success', 'Data Berhasil Diupdate');
     }
 
     /**
