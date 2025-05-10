@@ -399,7 +399,7 @@
                             searchable: false,
                             render: function(data, type, full, meta) {
                                 return `
-                                        <x-button.info-button type="button" data-id="${full.id}" class="btn-detail btn-sm text-white"><i class="fa-solit fa-eye"></i>Detail</x-button.info-button>
+                                        <x-button.info-button type="button" data-id="${full.id}" class="btn-detail btn-sm text-white"><i class="fa-solid fa-eye"></i>Detail</x-button.info-button>
                                         
                                     <x-form action="{{ url('/dashboard/destroy/${full.id}') }}" style="display: inline;">
                                         @csrf
