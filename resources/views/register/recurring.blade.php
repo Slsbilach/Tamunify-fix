@@ -1,8 +1,8 @@
 @section('title', 'Pendaftaran Tamu Berulang')
 
 <x-guest-layout>
-   <div class="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
-    <div class="max-w-4xl mx-auto w-full">
+    <div class="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto w-full">
 
             <a href="{{ route('checkin') }}"
                 class="mt-4 inline-flex items-center text-[#006838] mb-6 hover:underline font-semibold">
@@ -13,6 +13,20 @@
             </a>
 
             <div class="shadow-lg rounded-lg overflow-hidden bg-white">
+
+                @if ($errors->any())
+                    <div role="alert" class="alert alert-error">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0 stroke-current" fill="none"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        @foreach ($errors->all() as $error)
+                            <span>{{ $error }}</span>
+                        @endforeach
+                    </div>
+                @endif
+
                 <div class="bg-[#006838] text-white p-6 rounded-t-lg">
                     <h2 class="text-2xl font-semibold">Pendaftaran Tamu Berulang</h2>
                     <p class="text-white">Silakan isi data diri Anda untuk mendaftar akses berulang (orang tua/wali,
@@ -87,11 +101,11 @@
                                     name="recurring_type" required autofocus autocomplete="recurring_type">
                                     <option value="" disabled selected>Pilih Tipe</option>
                                     @foreach (\App\Enums\RecurringType::cases() as $recurring_type)
-                                    <option value="{{ $recurring_type->value }}" {{
-                                        old('recurring_type')==$recurring_type->value ?
+                                                                    <option value="{{ $recurring_type->value }}" {{
+                                        old('recurring_type') == $recurring_type->value ?
                                         'selected' : '' }}>
-                                        {{ $recurring_type->value }}
-                                    </option>
+                                                                        {{ $recurring_type->value }}
+                                                                    </option>
                                     @endforeach
                                 </x-input.select-input>
                                 <x-input.input-error :messages="$errors->get('recurring_type')" class="mt-2" />
@@ -115,10 +129,10 @@
                                     required autofocus autocomplete="relation">
                                     <option value="" disabled selected>Pilih Hubungan</option>
                                     @foreach (\App\Enums\RelationType::cases() as $relation)
-                                    <option value="{{ $relation->value }}" {{ old('relation')==$relation->value ?
+                                                                    <option value="{{ $relation->value }}" {{ old('relation') == $relation->value ?
                                         'selected' : '' }}>
-                                        {{ $relation->value }}
-                                    </option>
+                                                                        {{ $relation->value }}
+                                                                    </option>
                                     @endforeach
                                 </x-input.select-input>
                                 <x-input.input-error :messages="$errors->get('relation')" class="mt-2" />
@@ -135,10 +149,10 @@
                                     required autofocus autocomplete="department">
                                     <option value="" disabled selected>Pilih Departement</option>
                                     @foreach (\App\Enums\DepartmentType::cases() as $department)
-                                    <option value="{{ $department->value }}" {{ old('department')==$department->value ?
+                                                                    <option value="{{ $department->value }}" {{ old('department') == $department->value ?
                                         'selected' : '' }}>
-                                        {{ $department->value }}
-                                    </option>
+                                                                        {{ $department->value }}
+                                                                    </option>
                                     @endforeach
                                 </x-input.select-input>
                                 <x-input.input-error :messages="$errors->get('department')" class="mt-2" />
@@ -180,15 +194,15 @@
                                 <label class="block text-sm font-medium mb-2">Hari Kunjungan</label>
                                 <div class="grid grid-cols-2 gap-2">
                                     @php
-                                    $days = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'];
+                                        $days = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'];
                                     @endphp
 
                                     @foreach ($days as $day)
-                                    <label class="inline-flex items-center">
-                                        <input type="checkbox" name="visit_days[]" value="{{ $day }}"
-                                            class="form-checkbox text-green-600">
-                                        <span class="ml-2">{{ $day }}</span>
-                                    </label>
+                                        <label class="inline-flex items-center">
+                                            <input type="checkbox" name="visit_days[]" value="{{ $day }}"
+                                                class="form-checkbox text-green-600">
+                                            <span class="ml-2">{{ $day }}</span>
+                                        </label>
                                     @endforeach
                                 </div>
                             </div>

@@ -76,13 +76,60 @@
                         <button class="w-full text-gray-700 hover:underline py-2">Kembali ke Beranda</button>
                     </a>
                 </div>
-            @else
-                @if(!session('success'))
-                <div class="text-center p-6">
-                    <i class="fa-solid fa-circle-xmark mx-auto h-16 w-16 text-green-600 mb-4"></i>
 
-                    <h2 class="text-2xl font-semibold">Uppss Anda Belum Melakukan Pendaftaran!</h2>
+                <div class="max-w-md w-full bg-white rounded-lg shadow-lg">
+                @php
+                    $emotions = [
+                        ['value' => 5, 'emoji' => '😍', 'label' => 'Sangat Puas', 'color' => 'text-green-500'],
+                        ['value' => 4, 'emoji' => '😊', 'label' => 'Puas', 'color' => 'text-emerald-400'],
+                        ['value' => 3, 'emoji' => '😐', 'label' => 'Biasa', 'color' => 'text-yellow-400'],
+                        ['value' => 2, 'emoji' => '😕', 'label' => 'Kurang Puas', 'color' => 'text-orange-400'],
+                        ['value' => 1, 'emoji' => '😡', 'label' => 'Tidak Puas', 'color' => 'text-red-500'],
+                    ];
+                @endphp
+    
+                <div class="bg-[#006838]/5 p-6 rounded-lg" id="rating-container">
+                    <h3 class="text-lg font-medium text-[#006838] mb-4">Bagaimana pengalaman Anda dengan proses check-in
+                        kami?</h3>
+    
+                    <form method="POST" action="{{ route('store.reaction') }}" onsubmit="return handleSubmit(event)">
+                        @csrf
+                        <input type="hidden" name="visitor_id" value="{{ $data['visitor']->id }}">
+                        <input type="hidden" name="rating" id="ratingInput">
+    
+                        <div class="flex justify-center mb-6 gap-2" id="ratingOptions">
+                            @foreach($emotions as $emotion)
+                                <button type="button" data-value="{{ $emotion['label'] }}"
+                                    class="rating-btn flex flex-col items-center p-2 rounded-lg transition-all focus:outline-none hover:bg-white/50"
+                                    aria-label="{{ $emotion['label'] }}">
+                                    <div class="emoji text-2xl mb-2 text-gray-400">{{ $emotion['emoji'] }}</div>
+                                    <span class="label text-xs font-medium text-gray-500">{{ $emotion['label'] }}</span>
+                                </button>
+                            @endforeach
+                        </div>
+    
+                        <div class="mb-4">
+                            <p class="text-sm text-gray-600 mb-2">Berikan komentar atau saran (opsional):</p>
+                            <textarea name="feedback" rows="3" placeholder="Bagikan pengalaman atau saran Anda..."
+                                class="resize-none w-full border-gray-300 rounded-md shadow-sm focus:border-[#006838] focus:ring-[#006838]"></textarea>
+                        </div>
+    
+                        <button type="submit" class="w-full bg-[#006838] hover:bg-[#005028] text-white py-2 rounded-md"
+                            id="submitBtn">
+                            Kirim Penilaian
+                        </button>
+                    </form>
                 </div>
+            </div>
+            @else
+            
+
+                @if(!session('success'))
+                    <div class="text-center p-6">
+                        <i class="fa-solid fa-circle-xmark mx-auto h-16 w-16 text-green-600 mb-4"></i>
+
+                        <h2 class="text-2xl font-semibold">Uppss Anda Belum Melakukan Pendaftaran!</h2>
+                    </div>
                 @endif
                 <div class="flex flex-col gap-2 p-6 border-t">
                     <a href="{{ route('home') }}" class="w-full mt-2">
@@ -90,50 +137,7 @@
                     </a>
                 </div>
             @endif
-        </div>
-        <div class="max-w-md w-full bg-white rounded-lg shadow-lg">
-            @php
-                $emotions = [
-                    ['value' => 5, 'emoji' => '😍', 'label' => 'Sangat Puas', 'color' => 'text-green-500'],
-                    ['value' => 4, 'emoji' => '😊', 'label' => 'Puas', 'color' => 'text-emerald-400'],
-                    ['value' => 3, 'emoji' => '😐', 'label' => 'Biasa', 'color' => 'text-yellow-400'],
-                    ['value' => 2, 'emoji' => '😕', 'label' => 'Kurang Puas', 'color' => 'text-orange-400'],
-                    ['value' => 1, 'emoji' => '😡', 'label' => 'Tidak Puas', 'color' => 'text-red-500'],
-                ];
-            @endphp
-
-            <div class="bg-[#006838]/5 p-6 rounded-lg" id="rating-container">
-                <h3 class="text-lg font-medium text-[#006838] mb-4">Bagaimana pengalaman Anda dengan proses check-in
-                    kami?</h3>
-
-                <form method="POST" action="{{ route('store.reaction') }}" onsubmit="return handleSubmit(event)">
-                    @csrf
-                    <input type="hidden" name="visitor_id" value="{{ $data['visitor']->id }}">
-                    <input type="hidden" name="rating" id="ratingInput">
-
-                    <div class="flex justify-center mb-6 gap-2" id="ratingOptions">
-                        @foreach($emotions as $emotion)
-                            <button type="button" data-value="{{ $emotion['label'] }}"
-                                class="rating-btn flex flex-col items-center p-2 rounded-lg transition-all focus:outline-none hover:bg-white/50"
-                                aria-label="{{ $emotion['label'] }}">
-                                <div class="emoji text-2xl mb-2 text-gray-400">{{ $emotion['emoji'] }}</div>
-                                <span class="label text-xs font-medium text-gray-500">{{ $emotion['label'] }}</span>
-                            </button>
-                        @endforeach
-                    </div>
-
-                    <div class="mb-4">
-                        <p class="text-sm text-gray-600 mb-2">Berikan komentar atau saran (opsional):</p>
-                        <textarea name="feedback" rows="3" placeholder="Bagikan pengalaman atau saran Anda..."
-                            class="resize-none w-full border-gray-300 rounded-md shadow-sm focus:border-[#006838] focus:ring-[#006838]"></textarea>
-                    </div>
-
-                    <button type="submit" class="w-full bg-[#006838] hover:bg-[#005028] text-white py-2 rounded-md"
-                        id="submitBtn">
-                        Kirim Penilaian
-                    </button>
-                </form>
-            </div>
+            
         </div>
     </div>
     <x-slot name="script">

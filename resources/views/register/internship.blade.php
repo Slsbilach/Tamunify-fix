@@ -13,6 +13,20 @@
             </a>
 
             <div class="shadow-lg rounded-lg overflow-hidden bg-white">
+
+                @if ($errors->any())
+                    <div role="alert" class="alert alert-error">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0 stroke-current" fill="none"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        @foreach ($errors->all() as $error)
+                            <span>{{ $error }}</span>
+                        @endforeach
+                    </div>
+                @endif
+
                 <div class="bg-[#006838] text-white p-6 rounded-t-lg">
                     <h2 class="text-2xl font-semibold">Pendaftaran Magang/PKL</h2>
                     <p class="text-white">Silakan isi data diri Anda untuk mendaftar program magang atau praktik kerja
@@ -79,67 +93,68 @@
 
                     {{-- Informasi Magang --}}
                     <div class="mb-6">
-    <h3 class="font-medium text-lg mb-2">Informasi Magang</h3>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        
-        <!-- Tanggal Mulai Magang -->
-        <div>
-            <x-input.input-label for="internship_start" :value="__('Tanggal Mulai Magang')" />
-            <x-input.text-input id="internship_start" class="mt-1 w-full" type="date"
-                name="internship_start" :value="old('internship_start')" autofocus
-                autocomplete="internship_start" />
-        </div>
+                        <h3 class="font-medium text-lg mb-2">Informasi Magang</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 
-        <!-- Tanggal Selesai Magang -->
-        <div>
-            <x-input.input-label for="internship_end" :value="__('Tanggal Selesai Magang')" />
-            <x-input.text-input id="internship_end" class="mt-1 w-full" type="date"
-                name="internship_end" :value="old('internship_end')" autofocus
-                autocomplete="internship_end" />
-        </div>
+                            <!-- Tanggal Mulai Magang -->
+                            <div>
+                                <x-input.input-label for="internship_start" :value="__('Tanggal Mulai Magang')" />
+                                <x-input.text-input id="internship_start" class="mt-1 w-full" type="date"
+                                    name="internship_start" :value="old('internship_start')" autofocus
+                                    autocomplete="internship_start" />
+                            </div>
 
-        <!-- Departemen -->
-        <div>
-            <x-input.input-label for="department" :value="__('Departemen yang dituju')" />
-            <x-input.select-input id="department" class="mt-1 w-full" name="department" required>
-                <option value="" disabled selected>Pilih Departemen</option>
-                @foreach (\App\Enums\DepartmentType::cases() as $department)
-                    <option value="{{ $department->value }}" {{ old('department') == $department->value ? 'selected' : '' }}>
-                        {{ $department->value }}
-                    </option>
-                @endforeach
-            </x-input.select-input>
-            <x-input.input-error :messages="$errors->get('department')" class="mt-2" />
-            
-            <!-- Input Departemen Lain -->
-            <input type="text" name="department_more" id="department_more"
-                class="mt-2 w-full border border-gray-300 rounded px-3 py-2"
-                placeholder="Masukkan nama departemen lain" value="{{ old('department_more') }}"
-                style="{{ old('department') == 'Lainnya' ? '' : 'display:none;' }}" />
-        </div>
+                            <!-- Tanggal Selesai Magang -->
+                            <div>
+                                <x-input.input-label for="internship_end" :value="__('Tanggal Selesai Magang')" />
+                                <x-input.text-input id="internship_end" class="mt-1 w-full" type="date"
+                                    name="internship_end" :value="old('internship_end')" autofocus
+                                    autocomplete="internship_end" />
+                            </div>
 
-        <!-- Pembimbing -->
-        <div>
-            <x-input.input-label for="supervisor" :value="__('Pembimbing (jika sudah ada)')" />
-            <x-input.text-input id="supervisor" class="mt-1 w-full" type="text" name="supervisor"
-                :value="old('supervisor')" autofocus autocomplete="supervisor"
-                placeholder="Masukan nama pembimbing" />
-            <x-input.input-error :messages="$errors->get('supervisor')" class="mt-2" />
-        </div>
+                            <!-- Departemen -->
+                            <div>
+                                <x-input.input-label for="department" :value="__('Departemen yang dituju')" />
+                                <x-input.select-input id="department" class="mt-1 w-full" name="department" required>
+                                    <option value="" disabled selected>Pilih Departemen</option>
+                                    @foreach (\App\Enums\DepartmentType::cases() as $department)
+                                        <option value="{{ $department->value }}" {{ old('department') == $department->value ? 'selected' : '' }}>
+                                            {{ $department->value }}
+                                        </option>
+                                    @endforeach
+                                </x-input.select-input>
+                                <x-input.input-error :messages="$errors->get('department')" class="mt-2" />
 
-        <!-- Surat Pengantar -->
-        <div class="md:col-span-2">
-            <label class="block text-sm font-medium">Surat Pengantar</label>
-            <div class="border-2 border-dashed border-[#a3c4a1] rounded-lg p-4 text-center">
-                <i class="fa-solid fa-upload mx-auto h-8 w-8 text-gray-400"></i>
-                <p class="mt-2 text-xs text-gray-500">Unggah surat pengantar dari institusi pendidikan</p>
-                <input type="file" name="referral_letter"
-                    class="mt-2 text-xs h-8 w-full border border-gray-300 rounded" />
-            </div>
-        </div>
+                                <!-- Input Departemen Lain -->
+                                <input type="text" name="department_more" id="department_more"
+                                    class="mt-2 w-full border border-gray-300 rounded px-3 py-2"
+                                    placeholder="Masukkan nama departemen lain" value="{{ old('department_more') }}"
+                                    style="{{ old('department') == 'Lainnya' ? '' : 'display:none;' }}" />
+                            </div>
 
-    </div>
-</div>
+                            <!-- Pembimbing -->
+                            <div>
+                                <x-input.input-label for="supervisor" :value="__('Pembimbing (jika sudah ada)')" />
+                                <x-input.text-input id="supervisor" class="mt-1 w-full" type="text" name="supervisor"
+                                    :value="old('supervisor')" autofocus autocomplete="supervisor"
+                                    placeholder="Masukan nama pembimbing" />
+                                <x-input.input-error :messages="$errors->get('supervisor')" class="mt-2" />
+                            </div>
+
+                            <!-- Surat Pengantar -->
+                            <div class="md:col-span-2">
+                                <label class="block text-sm font-medium">Surat Pengantar</label>
+                                <div class="border-2 border-dashed border-[#a3c4a1] rounded-lg p-4 text-center">
+                                    <i class="fa-solid fa-upload mx-auto h-8 w-8 text-gray-400"></i>
+                                    <p class="mt-2 text-xs text-gray-500">Unggah surat pengantar dari institusi
+                                        pendidikan</p>
+                                    <input type="file" name="referral_letter"
+                                        class="mt-2 text-xs h-8 w-full border border-gray-300 rounded" />
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
 
 
                     {{-- Kontak Darurat --}}

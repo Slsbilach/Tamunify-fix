@@ -113,6 +113,8 @@
                     </div>
                 </div>
             @else
+            
+
              @if(!session('success'))
                 <div class="text-center p-6">
                     <i class="fa-solid fa-circle-xmark mx-auto h-16 w-16 text-green-600 mb-4"></i>
@@ -126,6 +128,7 @@
                     </a>
                 </div>
             @endif
+
 
 
         </div>
