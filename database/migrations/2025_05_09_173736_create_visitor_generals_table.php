@@ -15,8 +15,10 @@ return new class extends Migration {
             $table->foreignId('visitor_id')->constrained()->onDelete('cascade');
             $table->string('company')->nullable();
             $table->enum('purpose', ['Rapat / Meeting', 'Pengiriman / Delivery', 'Maintenance', 'Interview', 'Lainnya']);
+            $table->string('purpose_more')->nullable();
             $table->string('person_to_meet');
-            $table->enum('department', ['Produksi', 'Engineering', 'HRD', 'Keuangan', 'Marketing', 'IT', 'lainnya']);
+            $table->enum('department', ['Produksi', 'Engineering', 'HRD', 'Keuangan', 'Marketing', 'IT', 'Lainnya']);
+            $table->string('department_more')->nullable();
             $table->date('visit_date');
             $table->date('exit_date');
             $table->time('visit_time');

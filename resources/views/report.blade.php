@@ -75,7 +75,7 @@
 
         <!-- name of each tab group should be unique -->
         <div class="tabs tabs-box">
-            <input type="radio" name="my_tabs_6" class="tab" aria-label="Ikhtisar" checked="checked" />
+            <input type="radio" name="my_tabs_6" class="tab checked:focus:bg-[#006838]" aria-label="Ringkasan" checked="checked" />
             <div class="tab-content bg-base-100 border-base-300 p-6">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {{-- Tren Kunjungan --}}
@@ -114,7 +114,7 @@
 
             </div>
 
-            <input type="radio" name="my_tabs_6" class="tab" aria-label="Laporan Harian" />
+            <input type="radio" name="my_tabs_6" class="tab checked:focus:bg-[#006838]" aria-label="Laporan Harian" />
             <div class="tab-content bg-base-100 border-base-300 p-6">
                 <h1 class="mb-4 font-bold text-lg text-[#006838]">Laporan Harian</h1>
                 <p class="mb-3">Statistik kunjungan harian 14 hari terakhir</p>
@@ -142,7 +142,7 @@
                 </table>
             </div>
 
-            <input type="radio" name="my_tabs_6" class="tab" aria-label="Laporan Mingguan" />
+            <input type="radio" name="my_tabs_6" class="tab checked:focus:bg-[#006838]" aria-label="Laporan Mingguan" />
             <div class="tab-content bg-base-100 border-base-300 p-6">
                 <h1 class="mb-4 font-bold text-lg text-[#006838]">Laporan Mingguan</h1>
                 <p class="mb-3">Statistik kunjungan mingguan 8 minggu terakhir</p>
@@ -170,7 +170,7 @@
                 </table>
             </div>
 
-            <input type="radio" name="my_tabs_6" class="tab" aria-label="Laporan Bulanan" />
+            <input type="radio" name="my_tabs_6" class="tab checked:focus:bg-[#006838]" aria-label="Laporan Bulanan" />
             <div class="tab-content bg-base-100 border-base-300 p-6">
                 <h1 class="mb-4 font-bold text-lg text-[#006838]">Laporan Bulanan</h1>
                 <p class="mb-3">Statistik kunjungan bulanan 12 bulan terakhir</p>
@@ -198,7 +198,7 @@
                 </table>
             </div>
 
-            <input type="radio" name="my_tabs_6" class="tab" aria-label="Data Kunjungan" />
+            <input type="radio" name="my_tabs_6" class="tab checked:focus:bg-[#006838]" aria-label="Data Kunjungan" />
             <div class="tab-content bg-base-100 border-base-300 p-6">
                 <div class="p-6">
                     <div class="flex items-center justify-between">
@@ -285,17 +285,56 @@
                     </table>
                 </div>
             </div>
-        </div>
-        <x-modal.basic id="detail" title="Detail Tamu">
-            <div id="visitor-detail-body">
+
+            <input type="radio" name="my_tabs_6" class="tab checked:focus:bg-[#006838]" aria-label="Reaction" />
+            <div class="tab-content bg-base-100 border-base-300 p-6">
+                <div class="p-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="text-lg font-bold text-[#006838]">Data Reaction</h3>
+                        </div>
+
+                        
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+
+                 <div class="border border-[#006838]/20 bg-white/90 rounded-xl shadow-sm p-4">
+                        <!-- <div class="mb-4">
+                            <h2 class="text-[#006838] text-lg font-semibold">Tren Kunjungan</h2>
+                            <p class="text-sm text-gray-500">Jumlah kunjungan per periode</p>
+                        </div> -->
+                    <div class="relative w-64 h-64 mx-auto">
+         <canvas id="reactionChart"></canvas>
+     </div>
+     </div>
+     
+     <div class="border border-[#006838]/20 bg-white/90 rounded-xl shadow-sm p-4">
+     <div class="relative overflow-x-auto mt-5 w-full">
+                         <table id="reactions" class="table">
+                             <thead>
+                                 <tr>
+                                     <th scope="col" class="px-6 py-3">
+                                         No
+                                     </th>
+                                     <th scope="col" class="px-6 py-3">
+                                         Rating
+                                     </th>
+                                     <th scope="col" class="px-6 py-3">
+                                         Feedback
+                                     </th>
+                                     
+                                 </tr>
+                             </thead>
+                             <tbody></tbody>
+                         </table>
+                     </div>
+                </div>
+                </div>
 
             </div>
-            <div class="modal-action">
-                <form method="dialog">
-                    <button class="btn">Tutup</button>
-                </form>
-            </div>
-        </x-modal.basic>
+        </div>
 
     </div>
     <x-slot name="script">
@@ -533,6 +572,51 @@
                 },
             ]
         });
+        let dataTable2 = $('#reactions').DataTable({
+            buttons: [
+                // 'copy', 'excel', 'csv', 'pdf', 'print',
+                'colvis'
+            ],
+            processing: true,
+            search: {
+                return: true
+            },
+            serverSide: true,
+            ajax: {
+                url: '{{ route('report.reaction') }}',
+                beforeSend: function() {
+                    Swal.fire({
+                        title: 'Loading...',
+                        text: 'Tunggu sebentar',
+                        allowOutsideClick: false,
+                        didOpen: () => {
+                            Swal.showLoading();
+                        }
+                    });
+                },
+                complete: function() {
+                    Swal.close();
+                },
+            },
+            columns: [{
+                    data: null,
+                    name: 'no',
+                    orderable: false,
+                    searchable: false,
+                    render: function(data, type, row, meta) {
+                        return meta.row + meta.settings._iDisplayStart + 1;
+                    }
+                },
+                {
+                    data: 'name',
+                    name: 'name'
+                },
+                {
+                    data: 'note',
+                    name: 'note'
+                },
+            ]
+        });
         $('#type').change(function() {
             dataTable.ajax.reload();
         });
@@ -554,5 +638,37 @@
 
     });
         </script>
+        <script>
+    const labels_r = {!! json_encode($reactionCounts->pluck('name')) !!};
+    const data_r = {!! json_encode($reactionCounts->pluck('total')) !!};
+
+    const pieChart = new Chart(document.getElementById('reactionChart'), {
+        type: 'pie',
+        data: {
+            labels: labels_r,
+            datasets: [{
+                label: 'Reaksi Tamu',
+                data: data_r,
+                backgroundColor: [
+                    '#22c55e', // Sangat Puas
+                    '#10b981', // Puas
+                    '#facc15', // Biasa
+                    '#f97316', // Kurang Puas
+                    '#ef4444', // Tidak Puas
+                ]
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                },
+            },
+        }
+    });
+</script>
+
     </x-slot>
 </x-app-layout>

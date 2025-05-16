@@ -8,13 +8,13 @@
         @endif
 
         <x-card.card-default class="bg-white/95 rounded-lg shadow-md border border-[#006838]/20 mb-6">
-            <div class="p-6">
-                <div class="flex items-center justify-between">
+            <div>
+                <div class="flex items-center justify-between -mt-5">
                     <div>
                         <h3 class="text-lg font-bold text-[#006838]">Manajemen Tamu</h3>
                     </div>
 
-                    <div class="flex items-center justify-start">
+                    <div class="flex items-center justify-start mb-5">
                         <i class="fa-solid fa-filter mr-1 w-4 h-4"></i>
                         <div class="mr-3">
                             <x-input.select-input id="type" class="w-full" type="text" name="type">
@@ -39,31 +39,39 @@
                         </x-form>
                     </div>
                 </div>
-                <div class="flex justify-start space-x-4">
+                <div class="flex justify-start space-x-4 mb-10">
                     <a href="{{ route('visitor.create') }}">
-                        <x-button.primary-button>
+                        <x-button.default-button class="border-[#006838] text-white bg-[#006838] hover:bg-[#005830]">
                             <i class="fa-solid fa-plus"></i>
                             Tambah Data
-                        </x-button.primary-button>
+                        </x-button.default-button>
                     </a>
                 </div>
             </div>
 
-            <div class="flex items-center justify-start w-full">
-                <div class="join ">
-                    <input
-                        class="join-item btn w-32 bg-base-200 checked:bg-[#006838] checked:text-white checked:border-[#006838]"
-                        type="radio" name="status" id="status" value="All" aria-label="Semua" />
-                    <input
-                        class="join-item btn w-32 bg-base-200 checked:bg-[#006838] checked:text-white checked:border-[#006838]"
-                        type="radio" name="status" id="status" value="Pending" aria-label="Menunggu" />
-                    <input
-                        class="join-item btn w-32 bg-base-200 checked:bg-[#006838] checked:text-white checked:border-[#006838]"
-                        type="radio" name="status" id="status" value="Active" aria-label="Aktif" />
-                    <input
-                        class="join-item btn w-32 bg-base-200 checked:bg-[#006838] checked:text-white checked:border-[#006838]"
-                        type="radio" name="status" id="status" value="Inactive" aria-label="Selesai" />
-                </div>
+            <div class="flex items-center justify-start w-full -mt-5">
+                <div class="join">
+                <input type="radio" name="status" value="All" id="all" class="hidden peer/all" checked />
+                    <label for="all"
+                    class="join-item btn w-32 bg-base-200 peer-checked/all:bg-[#006838] peer-checked/all:text-white peer-checked/all:border-[#006838]">
+                    Semua
+                    </label>
+                <input type="radio" name="status" value="Pending" id="pending" class="hidden peer/pending" />
+                     <label for="pending"
+                        class="join-item btn w-32 bg-base-200 peer-checked/pending:bg-[#006838] peer-checked/pending:text-white peer-checked/pending:border-[#006838]">
+                         Menunggu
+                    </label>
+                <input type="radio" name="status" value="Active" id="active" class="hidden peer/active" />
+                    <label for="active"
+                      class="join-item btn w-32 bg-base-200 peer-checked/active:bg-[#006838] peer-checked/active:text-white peer-checked/active:border-[#006838]">
+                         Aktif
+                </label>
+                     <input type="radio" name="status" value="Inactive" id="inactive" class="hidden peer/inactive" />
+                    <label for="inactive"
+                     class="join-item btn w-32 bg-base-200 peer-checked/inactive:bg-[#006838] peer-checked/inactive:text-white peer-checked/inactive:border-[#006838]">
+                     Selesai
+                </label>
+            </div>
             </div>
 
             <div class="relative overflow-x-auto mt-5">
@@ -129,6 +137,9 @@
 
 
                 let dataTable = $('#visitors').DataTable({
+                    scrollY: '400px',          // tinggi maksimal tabel (bisa disesuaikan)
+    scrollCollapse: true,      // scroll akan aktif jika data lebih dari tinggi
+    scroller: true,
                     buttons: [
                         // 'copy', 'excel', 'csv', 'pdf', 'print',
                         'colvis'

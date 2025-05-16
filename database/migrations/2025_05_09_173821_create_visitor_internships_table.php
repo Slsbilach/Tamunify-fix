@@ -16,12 +16,14 @@ return new class extends Migration {
             $table->string('institution');
             $table->date('internship_start');
             $table->date('internship_end');
-            $table->enum('department', ['Produksi', 'Engineering', 'HRD', 'Keuangan', 'Marketing', 'IT', 'lainnya']);
+            $table->enum('department', ['Produksi', 'Engineering', 'HRD', 'Keuangan', 'Marketing', 'IT', 'Lainnya']);
+            $table->string('department_more')->nullable();
             $table->string('supervisor')->nullable();
             $table->string('referral_letter')->nullable();
             $table->string('emergency_contact_name');
             $table->string('emergency_contact_phone');
             $table->enum('emergency_contact_relation', ['Orang Tua', 'Sahabat', 'Kerabat', 'Pasangan', 'Lainnya']);
+            $table->string('emergency_contact_relation_more')->nullable();
             $table->text('additional_info')->nullable();
             $table->timestamps();
         });

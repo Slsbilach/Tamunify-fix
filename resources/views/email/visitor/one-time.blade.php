@@ -27,8 +27,6 @@
         <ul>
             <li>Tunjukkan QR Code ini kepada petugas keamanan di gerbang</li>
             <li>QR Code hanya berlaku satu kali pada tanggal tersebut</li>
-            <li>Bawa identitas diri (KTP/SIM)</li>
-            <li>Kartu akses magang aktif selama masa magang</li>
             <li>Patuhi semua peraturan keamanan perusahaan</li>
         </ul>
 

@@ -31,10 +31,10 @@ class UserSeeder extends Seeder
 
         $admin = User::create([
             'name' => 'Admin',
-            'email' => 'admin@gmail.com',
+            'email' => 'oke@gmail.com',
             'status' => 'Active',
             'department' => 'IT',
-            'password' => Hash::make('password'),
+            'password' => Hash::make('@hi123'),
             'remember_token' => Str::random(10),
             'created_at' => now(),
             'updated_at' => now(),

@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\AdminController;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\VisitorController;
@@ -9,12 +11,15 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\RegisterVisitorController;
 
+// Halaman publik
 Route::get('/', function () {
     return view('home');
 })->name('home');
+
 Route::get('/check-in', function () {
     return view('check-in');
 })->name('checkin');
+
 Route::get('/one-time', [RegisterVisitorController::class, 'registerOneTime'])->name('register.one-time');
 Route::get('/recurring', [RegisterVisitorController::class, 'registerRecurring'])->name('register.recurring');
 Route::get('/internship', [RegisterVisitorController::class, 'registerInternship'])->name('register.internship');
@@ -23,10 +28,15 @@ Route::get('/one-time/success', [RegisterVisitorController::class, 'successOneTi
 Route::get('/internship/success', [RegisterVisitorController::class, 'successInternship'])->name('success.internship');
 Route::get('/recurring/success', [RegisterVisitorController::class, 'successRecurring'])->name('success.recurring');
 
-Route::post('/one-time', [RegisterVisitorController::class, 'storeOneTime'])->name('store.one-time');
 Route::post('/internship', [RegisterVisitorController::class, 'storeInternship'])->name('store.internship');
+Route::post('/one-time', [RegisterVisitorController::class, 'storeOneTime'])->name('store.one-time');
 Route::post('/recurring', [RegisterVisitorController::class, 'storeRecurring'])->name('store.recurring');
+Route::post('/reaction', [RegisterVisitorController::class, 'storeReaction'])->name('store.reaction');
 
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+    return redirect(config('app.frontend_url') . '/?verified=1');
+})->middleware(['auth', 'signed'])->name('verification.verify');
 
 Route::middleware('auth')->prefix('dashboard')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
@@ -35,8 +45,6 @@ Route::middleware('auth')->prefix('dashboard')->group(function () {
     Route::post('/update-status/{id}', [DashboardController::class, 'updateStatus']);
     Route::delete('/destroy/{visitor}', [DashboardController::class, 'destroy'])->name('dashboard.destroy');
     Route::post('/process-qr-code', [DashboardController::class, 'process']);
-
-
 
     Route::get('/notification', [NotificationController::class, 'index'])->name('notification.index');
     Route::post('/notifications/read', function () {
@@ -60,6 +68,7 @@ Route::middleware('auth')->prefix('dashboard')->group(function () {
     Route::put('/visitor/recurring/{visitor}', [VisitorController::class, 'updateRecurring'])->name('visitor.update.recurring');
 
     Route::get('/report', [ReportController::class, 'index'])->name('report.index');
+    Route::get('/report/reaction', [ReportController::class, 'reaction'])->name('report.reaction');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

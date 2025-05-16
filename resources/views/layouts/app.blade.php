@@ -22,7 +22,8 @@
 </head>
 
 <body class="font-poppins antialiased">
-    <div class="flex min-h-screen relative">
+    <div class="flex-1 bg-transparent relative z-10 flex flex-col pl-64">
+
         {{--
         <x-background /> --}}
         @include('layouts.sidebar')
@@ -31,16 +32,25 @@
             <header class="bg-white/90 border-b px-6 py-4">
                 <div class="flex justify-between items-center">
                     <div class="flex items-center gap-4">
-                        <h1 class="text-xl font-bold text-[#006838]">@yield('header')</h1>
+                        <h1 class="lg:text-xl text-xs font-bold text-[#006838]">@yield('header')</h1>
                     </div>
                     <div class="flex items-center space-x-4">
-
-                        <a href="{{ route('home') }}">
-                            <x-button.default-button
-                                class="border-[#006838] text-white bg-[#006838] hover:bg-[#005830]">
-                                Kembali ke Beranda
-                            </x-button.default-button>
-                        </a>
+                        <div class="lg:block hidden">
+                            <a href="{{ route('home') }}">
+                                <x-button.default-button
+                                    class="border-[#006838] text-white bg-[#006838] hover:bg-[#005830] lg:btn-lg btn-sm lg:text-base text-xs">
+                                    Kembali ke Beranda
+                                </x-button.default-button>
+                            </a>
+                        </div>
+                        <div class="lg:hidden block">
+                            <a href="{{ route('home') }}">
+                                <x-button.default-button
+                                    class="border-[#006838] text-white bg-[#006838] hover:bg-[#005830] lg:btn-lg btn-sm lg:text-base text-xs">
+                                    Kembali
+                                </x-button.default-button>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </header>

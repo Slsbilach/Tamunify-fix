@@ -1,8 +1,9 @@
 @section('title', 'Data Admin')
+@section('header', 'Kelola Admin')
 
 <x-app-layout>
 
-    <div class="py-12">
+    <div class="py-2">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <x-card.card-default class="static">
                 @if (session()->has('success'))
@@ -14,10 +15,10 @@
 
                 <div class="flex justify-start space-x-4">
                     <a href="{{ route('admin.create') }}">
-                        <x-button.primary-button>
+                        <x-button.default-button class="border-[#006838] text-white bg-[#006838] hover:bg-[#005830]">
                             <i class="fa-solid fa-plus"></i>
                             Tambah Data
-                        </x-button.primary-button>
+                        </x-button.default-button>
                     </a>
                 </div>
                 <div class="flex justify-start space-x-4">

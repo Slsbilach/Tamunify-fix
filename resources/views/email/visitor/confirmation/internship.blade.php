@@ -13,11 +13,11 @@
 
         @if ($visitor->status == 'Active')
         <p style="text-align: center;">
-            Selamat Anda Telah Diterima Magang
+             Permintaan akses kartu magang Anda telah disetujui. Silakan datang ke Departemen Keamanan pada hari pertama magang untuk pengambilan kartu
         </p>
         @else
         <p style="text-align: center;">
-            Mohon maaf permintaan magang anda ditolak
+            Mohon maaf pendaftaran anda ditolak
         </p>
         @endif
 

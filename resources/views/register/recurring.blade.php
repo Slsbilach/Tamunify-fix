@@ -1,8 +1,8 @@
 @section('title', 'Pendaftaran Tamu Berulang')
 
 <x-guest-layout>
-    <div class="min-h-screen bg-gray-50 py-8 px-4 p-20">
-        <div class="container mx-auto max-w-3xl">
+   <div class="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-4xl mx-auto w-full">
 
             <a href="{{ route('checkin') }}"
                 class="mt-4 inline-flex items-center text-[#006838] mb-6 hover:underline font-semibold">
@@ -95,6 +95,11 @@
                                     @endforeach
                                 </x-input.select-input>
                                 <x-input.input-error :messages="$errors->get('recurring_type')" class="mt-2" />
+
+                                <input type="text" name="recurring_type_more" id="recurring_type_more"
+                                    class="mt-2 w-full border border-gray-300 rounded px-3 py-2"
+                                    placeholder="Masukkan nama departemen lain" value="{{ old('recurring_type_more') }}"
+                                    style="{{ old('recurring_type') == 'Lainnya' ? '' : 'display:none;' }}" />
                             </div>
 
                             <div class="mb-4">
@@ -117,6 +122,11 @@
                                     @endforeach
                                 </x-input.select-input>
                                 <x-input.input-error :messages="$errors->get('relation')" class="mt-2" />
+
+                                <input type="text" name="relation_more" id="relation_more"
+                                    class="mt-2 w-full border border-gray-300 rounded px-3 py-2"
+                                    placeholder="Masukkan nama departemen lain" value="{{ old('relation_more') }}"
+                                    style="{{ old('relation') == 'Lainnya' ? '' : 'display:none;' }}" />
                             </div>
 
                             <div class="mb-4">
@@ -132,6 +142,11 @@
                                     @endforeach
                                 </x-input.select-input>
                                 <x-input.input-error :messages="$errors->get('department')" class="mt-2" />
+
+                                <input type="text" name="department_more" id="department_more"
+                                    class="mt-2 w-full border border-gray-300 rounded px-3 py-2"
+                                    placeholder="Masukkan nama departemen lain" value="{{ old('department_more') }}"
+                                    style="{{ old('department') == 'Lainnya' ? '' : 'display:none;' }}" />
                             </div>
 
                             <div class="mb-4">
@@ -219,4 +234,28 @@
             </div>
         </div>
     </div>
+    <x-slot name="script">
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const departmentSelect = document.getElementById('department');
+                const departmentMore = document.getElementById('department_more');
+                const relationSelect = document.getElementById('relation');
+                const relationMore = document.getElementById('relation_more');
+                const recurringSelect = document.getElementById('recurring_type');
+                const recurringMore = document.getElementById('recurring_type_more');
+
+                departmentSelect.addEventListener('change', function () {
+                    departmentMore.style.display = this.value === 'Lainnya' ? 'block' : 'none';
+                });
+
+                relationSelect.addEventListener('change', function () {
+                    relationMore.style.display = this.value === 'Lainnya' ? 'block' : 'none';
+                });
+
+                recurringSelect.addEventListener('change', function () {
+                    recurringMore.style.display = this.value === 'Lainnya' ? 'block' : 'none';
+                });
+            });
+        </script>
+    </x-slot>
 </x-guest-layout>

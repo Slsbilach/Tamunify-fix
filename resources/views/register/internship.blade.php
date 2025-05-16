@@ -1,8 +1,8 @@
 @section('title', 'Pendaftaran Magang')
 
 <x-guest-layout>
-    <div class="min-h-screen bg-gray-50 py-8 px-4 p-20">
-        <div class="container mx-auto max-w-3xl">
+    <div class="min-h-screen bg-gray-50 py-6 px-4 sm:px-6 lg:px-8">
+        <div class="mx-auto w-full max-w-3xl">
 
             <a href="{{ route('checkin') }}"
                 class="mt-4 inline-flex items-center text-[#006838] mb-6 hover:underline font-semibold">
@@ -25,7 +25,7 @@
                     {{-- Data Diri --}}
                     <div class="mb-6">
                         <h3 class="font-medium text-lg mb-2">Data Diri Peserta</h3>
-                        <div class="grid md:grid-cols-2 gap-4">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div class="mb-4">
                                 <x-input.input-label for="name" :value="__('Nama Lengkap')" />
                                 <x-input.text-input id="name" class="mt-1 w-full" type="text" name="name"
@@ -79,58 +79,68 @@
 
                     {{-- Informasi Magang --}}
                     <div class="mb-6">
-                        <h3 class="font-medium text-lg mb-2">Informasi Magang</h3>
-                        <div class="grid md:grid-cols-2 gap-4">
-                            <div class="mb-4">
-                                <x-input.input-label for="internship_start" :value="__('Tanggal Mulai Magang')" />
-                                <x-input.text-input id="internship_start" class="mt-1 w-full" type="date"
-                                    name="internship_start" :value="old('internship_start')" autofocus
-                                    autocomplete="internship_start" />
-                            </div>
+    <h3 class="font-medium text-lg mb-2">Informasi Magang</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        
+        <!-- Tanggal Mulai Magang -->
+        <div>
+            <x-input.input-label for="internship_start" :value="__('Tanggal Mulai Magang')" />
+            <x-input.text-input id="internship_start" class="mt-1 w-full" type="date"
+                name="internship_start" :value="old('internship_start')" autofocus
+                autocomplete="internship_start" />
+        </div>
 
-                            <div class="mb-4">
-                                <x-input.input-label for="internship_end" :value="__('Tanggal Selesai Magang')" />
-                                <x-input.text-input id="internship_end" class="mt-1 w-full" type="date"
-                                    name="internship_end" :value="old('internship_end')" autofocus
-                                    autocomplete="internship_end" />
-                            </div>
+        <!-- Tanggal Selesai Magang -->
+        <div>
+            <x-input.input-label for="internship_end" :value="__('Tanggal Selesai Magang')" />
+            <x-input.text-input id="internship_end" class="mt-1 w-full" type="date"
+                name="internship_end" :value="old('internship_end')" autofocus
+                autocomplete="internship_end" />
+        </div>
 
-                            <div class="mb-4">
-                                <x-input.input-label for="department" :value="__('Departement yang dituju')" />
-                                <x-input.select-input id="department" class="mt-1 w-full" type="text" name="department"
-                                    required autofocus autocomplete="department">
-                                    <option value="" disabled selected>Pilih Departement</option>
-                                    @foreach (\App\Enums\DepartmentType::cases() as $department)
-                                    <option value="{{ $department->value }}" {{ old('department')==$department->value ?
-                                        'selected' : '' }}>
-                                        {{ $department->value }}
-                                    </option>
-                                    @endforeach
-                                </x-input.select-input>
-                                <x-input.input-error :messages="$errors->get('department')" class="mt-2" />
-                            </div>
+        <!-- Departemen -->
+        <div>
+            <x-input.input-label for="department" :value="__('Departemen yang dituju')" />
+            <x-input.select-input id="department" class="mt-1 w-full" name="department" required>
+                <option value="" disabled selected>Pilih Departemen</option>
+                @foreach (\App\Enums\DepartmentType::cases() as $department)
+                    <option value="{{ $department->value }}" {{ old('department') == $department->value ? 'selected' : '' }}>
+                        {{ $department->value }}
+                    </option>
+                @endforeach
+            </x-input.select-input>
+            <x-input.input-error :messages="$errors->get('department')" class="mt-2" />
+            
+            <!-- Input Departemen Lain -->
+            <input type="text" name="department_more" id="department_more"
+                class="mt-2 w-full border border-gray-300 rounded px-3 py-2"
+                placeholder="Masukkan nama departemen lain" value="{{ old('department_more') }}"
+                style="{{ old('department') == 'Lainnya' ? '' : 'display:none;' }}" />
+        </div>
 
-                            <div class="mb-4">
-                                <x-input.input-label for="supervisor" :value="__('Pembimbing (jika sudah
-                            ada)')" />
-                                <x-input.text-input id="supervisor" class="mt-1 w-full" type="text" name="supervisor"
-                                    :value="old('supervisor')" autofocus autocomplete="supervisor"
-                                    placeholder="Masukan nama pembimbing" />
-                                <x-input.input-error :messages="$errors->get('supervisor')" class="mt-2" />
-                            </div>
+        <!-- Pembimbing -->
+        <div>
+            <x-input.input-label for="supervisor" :value="__('Pembimbing (jika sudah ada)')" />
+            <x-input.text-input id="supervisor" class="mt-1 w-full" type="text" name="supervisor"
+                :value="old('supervisor')" autofocus autocomplete="supervisor"
+                placeholder="Masukan nama pembimbing" />
+            <x-input.input-error :messages="$errors->get('supervisor')" class="mt-2" />
+        </div>
 
-                            <div class="mb-4 col-span-2">
-                                <label class="block text-sm font-medium">Surat Pengantar</label>
-                                <div class="border-2 border-dashed border-[#a3c4a1] rounded-lg p-4 text-center">
-                                    <i class="fa-solid fa-upload mx-auto h-8 w-8 text-gray-400"></i>
-                                    <p class="mt-2 text-xs text-gray-500">Unggah surat pengantar dari institusi
-                                        pendidikan</p>
-                                    <input type="file" name="referral_letter"
-                                        class="mt-2 text-xs h-8 w-full border border-gray-300 rounded" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+        <!-- Surat Pengantar -->
+        <div class="md:col-span-2">
+            <label class="block text-sm font-medium">Surat Pengantar</label>
+            <div class="border-2 border-dashed border-[#a3c4a1] rounded-lg p-4 text-center">
+                <i class="fa-solid fa-upload mx-auto h-8 w-8 text-gray-400"></i>
+                <p class="mt-2 text-xs text-gray-500">Unggah surat pengantar dari institusi pendidikan</p>
+                <input type="file" name="referral_letter"
+                    class="mt-2 text-xs h-8 w-full border border-gray-300 rounded" />
+            </div>
+        </div>
+
+    </div>
+</div>
+
 
                     {{-- Kontak Darurat --}}
                     <div class="mb-6">
@@ -155,20 +165,24 @@
 
                             <div class="mb-4">
                                 <x-input.input-label for="emergency_contact_relation" :value="__('Hubungan')" />
-                                <x-input.select-input id="emergency_contact_relation" class="mt-1 w-full" type="text"
-                                    name="emergency_contact_relation" required autofocus
-                                    autocomplete="emergency_contact_relation">
+                                <x-input.select-input id="emergency_contact_relation" class="mt-1 w-full"
+                                    name="emergency_contact_relation" required>
                                     <option value="" disabled selected>Pilih Hubungan</option>
                                     @foreach (\App\Enums\ContactType::cases() as $relation)
-                                    <option value="{{ $relation->value }}" {{
-                                        old('emergency_contact_relation')==$relation->value ?
-                                        'selected' : '' }}>
-                                        {{ $relation->value }}
-                                    </option>
+                                        <option value="{{ $relation->value }}" {{ old('emergency_contact_relation') == $relation->value ? 'selected' : '' }}>
+                                            {{ $relation->value }}
+                                        </option>
                                     @endforeach
                                 </x-input.select-input>
                                 <x-input.input-error :messages="$errors->get('emergency_contact_relation')"
                                     class="mt-2" />
+
+                                <input type="text" name="emergency_contact_relation_more"
+                                    id="emergency_contact_relation_more"
+                                    class="mt-2 w-full border border-gray-300 rounded px-3 py-2"
+                                    placeholder="Masukkan hubungan lain"
+                                    value="{{ old('emergency_contact_relation_more') }}"
+                                    style="{{ old('emergency_contact_relation') == 'Lainnya' ? '' : 'display:none;' }}" />
                             </div>
                         </div>
                     </div>
@@ -195,4 +209,22 @@
             </div>
         </div>
     </div>
+    <x-slot name="script">
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const departmentSelect = document.getElementById('department');
+                const departmentMore = document.getElementById('department_more');
+                const relationSelect = document.getElementById('emergency_contact_relation');
+                const relationMore = document.getElementById('emergency_contact_relation_more');
+
+                departmentSelect.addEventListener('change', function () {
+                    departmentMore.style.display = this.value === 'Lainnya' ? 'block' : 'none';
+                });
+
+                relationSelect.addEventListener('change', function () {
+                    relationMore.style.display = this.value === 'Lainnya' ? 'block' : 'none';
+                });
+            });
+        </script>
+    </x-slot>
 </x-guest-layout>

@@ -3,7 +3,8 @@ $activePage = $activePage ?? '';
 $unreadNotifications = auth()->user()->unreadNotifications()->count();
 @endphp
 
-<div class="w-64 bg-[#006838] text-white p-4 relative z-10">
+<!-- <div class="w-64 bg-[#006838] text-white p-4 relative z-10"> -->
+<div class="fixed top-0 left-0 h-full lg:h-screen w-64 bg-[#006838] text-white p-4 z-20 overflow-y-auto">
     {{-- Logo --}}
     <div class="mb-8">
         <div class="relative w-full h-16 mb-4">
@@ -45,10 +46,10 @@ $unreadNotifications = auth()->user()->unreadNotifications()->count();
             class="flex items-center px-4 py-3 {{ Request::is('dashboard/admin') ? 'bg-[#005028] rounded-md' : 'text-green-100 hover:bg-[#005028] rounded-md' }}">
             <i class="fas fa-user-cog mr-3 w-5"></i> Kelola Admin
         </a>
-        <a href="#"
+        <!-- <a href="#"
             class="flex items-center px-4 py-3 {{ $activePage == 'settings' ? 'bg-[#005028] rounded-md' : 'text-green-100 hover:bg-[#005028] rounded-md' }}">
             <i class="fas fa-cog mr-3 w-5"></i> Pengaturan
-        </a>
+        </a> -->
     </nav>
 
     {{-- Logout --}}

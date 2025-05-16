@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Reaction;
 use Carbon\Carbon;
 use App\Models\Visitor;
 use Illuminate\Http\Request;
@@ -158,6 +159,9 @@ class ReportController extends Controller
         });
 
 
+        $reactionCounts = Reaction::select('name', \DB::raw('count(*) as total'))
+    ->groupBy('name')
+    ->get();
 
 
 
@@ -197,6 +201,7 @@ class ReportController extends Controller
             'dailyReports' => $this->dailyReports(),
             'weeklyReports' => $this->weeklyReports(),
             'monthlyReports' => $this->monthlyReports(),
+            'reactionCounts'=> $reactionCounts,
             'periode' => $periode,
         ]);
     }
@@ -440,5 +445,15 @@ class ReportController extends Controller
         return response()->json([
             'html' => $html
         ]);
+    }
+
+    public function reaction (Request $request)
+    {
+ if ($request->ajax()) {
+            $reactions = Reaction::query()
+                ->with(['visitor']);
+
+            return DataTables::of($reactions)->make(true);
+        }
     }
 }

@@ -47,4 +47,9 @@ class Visitor extends Model
     {
         return $this->hasOne(VisitorRecurring::class, 'visitor_id');
     }
+
+    public function reaction()
+    {
+        return $this->hasOne(Reaction::class, 'visitor_id');
+    }
 }

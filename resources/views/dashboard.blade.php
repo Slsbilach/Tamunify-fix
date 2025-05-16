@@ -2,16 +2,16 @@
 @section('header', 'Dashboard')
 
 <x-app-layout>
-    <div class="p-6 flex-grow">
+   <div class="p-6 flex-grow">
         @if (session()->has('success'))
         <x-alert.success :message="session('success')" />
         @endif
         <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
-            <x-card.card-default class="border-[#006838]/20 bg-white/95 shadow-md">
+            <x-card.card-default class="border-[#006838]/20 bg-[#006838]/95 shadow-md">
                 <div class="p-6">
                     <div class="flex items-center justify-between">
                         <div>
-                            <p class="text-sm font-medium text-gray-500">Total Tamu Hari Ini</p>
+                            <p class="text-sm font-medium text-[#006838]">Total Tamu Hari Ini</p>
                             <p class="text-3xl font-bold text-[#006838]">{{ $totalVisitorToday }}</p>
                         </div>
                         <div class="h-12 w-12 bg-[#006838]/10 rounded-full flex items-center justify-center">
@@ -21,48 +21,49 @@
                 </div>
             </x-card.card-default>
 
-            <x-card.card-default class="border-[#006838]/20 bg-white/95 shadow-md">
-                <div class="p-6">
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <p class="text-sm font-medium text-gray-500">Tamu Aktif</p>
-                            <p class="text-3xl font-bold text-[#006838]">{{ $visitorActive }}</p>
-                        </div>
-                        <div class="h-12 w-12 bg-[#006838]/10 rounded-full flex items-center justify-center">
-                            <i class="fas fa-users w-6 h-6 text-[#006838]"></i>
-                        </div>
+        <x-card.card-default class="border-[#006838]/20 bg-[#006838] shadow-md">
+            <div class="p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-[#006838]">Tamu Aktif</p>
+                        <p class="text-3xl font-bold text-[#006838]">{{ $visitorActive }}</p>
+                    </div>
+                    <div class="h-12 w-12 bg-[#006838]/10 rounded-full flex items-center justify-center">
+                        <i class="fas fa-users w-6 h-6 text-[#006838]"></i>
                     </div>
                 </div>
-            </x-card.card-default>
+            </div>
+        </x-card.card-default>
 
-            <x-card.card-default class="border-[#006838]/20 bg-white/95 shadow-md">
-                <div class="p-6">
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <p class="text-sm font-medium text-gray-500">Peserta Magang Aktif</p>
-                            <p class="text-3xl font-bold text-[#006838]">{{ $internshipActive }}</p>
-                        </div>
-                        <div class="h-12 w-12 bg-[#006838]/10 rounded-full flex items-center justify-center">
-                            <i class="fas fa-calendar-alt w-6 h-6 text-[#006838]"></i>
-                        </div>
+        <x-card.card-default class="border-[#006838]/20 bg-[#006838]/95 shadow-md">
+            <div class="p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-[#006838]">Peserta Magang Aktif</p>
+                        <p class="text-3xl font-bold text-[#006838]">{{ $internshipActive }}</p>
+                    </div>
+                    <div class="h-12 w-12 bg-[#006838]/10 rounded-full flex items-center justify-center">
+                        <i class="fas fa-calendar-alt w-6 h-6 text-[#006838]"></i>
                     </div>
                 </div>
-            </x-card.card-default>
+            </div>
+        </x-card.card-default>
 
-            <x-card.card-default class="border-[#006838]/20 bg-white/95 shadow-md">
-                <div class="p-6">
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <p class="text-sm font-medium text-gray-500">Tamu Berulang Aktif</p>
-                            <p class="text-3xl font-bold text-[#006838]">{{ $recurringActive }}</p>
-                        </div>
-                        <div class="h-12 w-12 bg-[#006838]/10 rounded-full flex items-center justify-center">
-                            <i class="fas fa-calendar-alt w-6 h-6 text-[#006838]"></i>
-                        </div>
+        <x-card.card-default class="border-[#006838]/20 bg-[#006838]/95 shadow-md">
+            <div class="p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-[#006838]">Tamu Berulang Aktif</p>
+                        <p class="text-3xl font-bold text-[#006838]">{{ $recurringActive }}</p>
+                    </div>
+                    <div class="h-12 w-12 bg-[#006838]/10 rounded-full flex items-center justify-center">
+                        <i class="fas fa-calendar-alt w-6 h-6 text-[#006838]"></i>
                     </div>
                 </div>
-            </x-card.card-default>
-        </div>
+            </div>
+        </x-card.card-default>
+    </div>
+
 
         <x-card.card-default class="bg-white/95 rounded-lg shadow-md border border-[#006838]/20 mb-6">
             <div class="p-6">
@@ -98,7 +99,7 @@
             </div>
 
             <div class="flex items-center justify-start w-full">
-                <div class="join ">
+                <!-- <div class="join ">
                     <input
                         class="join-item btn w-32 bg-base-200 checked:bg-[#006838] checked:text-white checked:border-[#006838]"
                         type="radio" name="status" id="status" value="All" aria-label="Semua" />
@@ -111,14 +112,36 @@
                     <input
                         class="join-item btn w-32 bg-base-200 checked:bg-[#006838] checked:text-white checked:border-[#006838]"
                         type="radio" name="status" id="status" value="Inactive" aria-label="Selesai" />
-                </div>
+                </div> -->
+            <div class="join">
+                <input type="radio" name="status" value="All" id="all" class="hidden peer/all" checked />
+                    <label for="all"
+                    class="join-item btn w-32 bg-base-200 peer-checked/all:bg-[#006838] peer-checked/all:text-white peer-checked/all:border-[#006838]">
+                    Semua
+                    </label>
+                <input type="radio" name="status" value="Pending" id="pending" class="hidden peer/pending" />
+                     <label for="pending"
+                        class="join-item btn w-32 bg-base-200 peer-checked/pending:bg-[#006838] peer-checked/pending:text-white peer-checked/pending:border-[#006838]">
+                         Menunggu
+                    </label>
+                <input type="radio" name="status" value="Active" id="active" class="hidden peer/active" />
+                    <label for="active"
+                      class="join-item btn w-32 bg-base-200 peer-checked/active:bg-[#006838] peer-checked/active:text-white peer-checked/active:border-[#006838]">
+                         Aktif
+                </label>
+                     <input type="radio" name="status" value="Inactive" id="inactive" class="hidden peer/inactive" />
+                    <label for="inactive"
+                     class="join-item btn w-32 bg-base-200 peer-checked/inactive:bg-[#006838] peer-checked/inactive:text-white peer-checked/inactive:border-[#006838]">
+                     Selesai
+                </label>
+            </div>
             </div>
 
-            <div class="relative overflow-x-auto mt-5">
-                <table id="visitors" class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col" class="px-6 py-3">
+            <div class="relative overflow-x-auto mt-5 ">
+                <table id="visitors" class="table ">
+                    <thead >
+                        <tr >
+                            <th scope="col" class="px-6 py-3 bg-[#006838]">
                                 No
                             </th>
                             <th scope="col" class="px-6 py-3">

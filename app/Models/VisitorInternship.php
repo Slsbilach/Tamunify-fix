@@ -14,11 +14,13 @@ class VisitorInternship extends Model
         'internship_start',
         'internship_end',
         'department',
+        'department_more',
         'supervisor',
         'referral_letter',
         'emergency_contact_name',
         'emergency_contact_phone',
         'emergency_contact_relation',
+        'emergency_contact_relation_more',
         'additional_info',
     ];
 

@@ -26,7 +26,6 @@
         {{ $slot }}
     </div>
 
-    @include('layouts.footer')
 
     <script src="{{ asset('assets/vendors/fontawesome/js/all.min.js') }}" defer></script>
     <script src="{{ asset('assets/js/script.js') }}"></script>

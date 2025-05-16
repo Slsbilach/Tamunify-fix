@@ -15,9 +15,12 @@ return new class extends Migration {
             $table->foreignId('visitor_id')->constrained()->onDelete('cascade');
             $table->string('company')->nullable();
             $table->enum('recurring_type', ['Orang Tua/Wali Peserta Magang', 'Vendor/Supplier Rutin', 'Mitra Bisnis', 'Kontraktor', 'Lainnya']);
+            $table->string('recurring_type_more')->nullable();
             $table->string('related_to');
             $table->enum('relation', ['Orang Tua', 'Vendor', 'Mitra', 'Kontraktor', 'Lainnya']);
-            $table->enum('department', ['Produksi', 'Engineering', 'HRD', 'Keuangan', 'Marketing', 'IT', 'lainnya']);
+            $table->string('relation_more')->nullable();
+            $table->enum('department', ['Produksi', 'Engineering', 'HRD', 'Keuangan', 'Marketing', 'IT', 'Lainnya']);
+            $table->string('department_more')->nullable();
             $table->date('access_start');
             $table->date('access_end');
             $table->string('vehicle_number')->nullable();

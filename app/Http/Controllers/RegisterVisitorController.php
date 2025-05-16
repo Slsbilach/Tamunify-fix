@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Reaction;
 use App\Models\User;
 use App\Models\Visitor;
 use App\Enums\VisitorType;
@@ -41,8 +42,10 @@ class RegisterVisitorController extends Controller
             'phone' => 'required|string|max:20',
             'email' => 'required|email|max:70',
             'purpose' => 'required|string',
+            'purpose_more' => 'nullable|string',
             'person_to_meet' => 'required|string|max:70',
             'department' => 'required|string',
+            'department_more' => 'nullable|string',
             'visit_date' => 'required|date',
             'exit_date' => 'required|date|after_or_equal:visit_date',
             'visit_time' => 'required',
@@ -83,8 +86,10 @@ class RegisterVisitorController extends Controller
             'visitor_id' => $visitor->id,
             'company' => $validated['company'],
             'purpose' => $validated['purpose'],
+            'purpose_more' => $validated['purpose_more'],
             'person_to_meet' => $validated['person_to_meet'],
             'department' => $validated['department'],
+            'department_more' => $validated['department_more'],
             'visit_date' => $validated['visit_date'],
             'exit_date' => $validated['exit_date'],
             'visit_time' => $validated['visit_time'],
@@ -117,8 +122,10 @@ class RegisterVisitorController extends Controller
             'supervisor' => 'nullable|string|max:70',
             'emergency_contact_name' => 'required|string|max:70',
             'emergency_contact_phone' => 'required|string|max:20',
-            'emergency_contact_relation' => 'required|string',
             'department' => 'required|string',
+    'department_more' => 'nullable|string',
+    'emergency_contact_relation' => 'required|string',
+    'emergency_contact_relation_more' => 'nullable|string',
             'internship_start' => 'required|date',
             'internship_end' => 'required|date|after_or_equal:internship_start',
             'additional_info' => 'nullable|string',
@@ -128,6 +135,7 @@ class RegisterVisitorController extends Controller
 
         $validated['status'] = 'Pending';
         $validated['type'] = VisitorType::MAGANG;
+
 
 
         $fileFilename = null;
@@ -161,7 +169,9 @@ class RegisterVisitorController extends Controller
             'emergency_contact_name' => $validated['emergency_contact_name'],
             'emergency_contact_phone' => $validated['emergency_contact_phone'],
             'emergency_contact_relation' => $validated['emergency_contact_relation'],
+            'emergency_contact_relation_more' => $validated['emergency_contact_relation_more'],
             'department' => $validated['department'],
+            'department_more' => $validated['department_more'],
             'internship_start' => $validated['internship_start'],
             'internship_end' => $validated['internship_end'],
             'referral_letter' => $suratPengantar,
@@ -187,9 +197,12 @@ class RegisterVisitorController extends Controller
             'email' => 'required|email|max:70',
             'company' => 'nullable|string|max:255',
             'recurring_type' => 'required|string',
+            'recurring_type_more' => 'nullable|string',
             'related_to' => 'required|string|max:70',
             'relation' => 'required|string',
+            'relation_more' => 'nullable|string',
             'department' => 'required|string',
+            'department_more' => 'nullable|string',
             'access_start' => 'required|date',
             'access_end' => 'required|date|after_or_equal:access_start',
             'vehicle_number' => 'nullable|string',
@@ -227,11 +240,14 @@ class RegisterVisitorController extends Controller
             'visitor_id' => $visitor->id,
             'company' => $validated['company'],
             'recurring_type' => $validated['recurring_type'],
+            'recurring_type_more' => $validated['recurring_type_more'],
             'related_to' => $validated['related_to'],
             'relation' => $validated['relation'],
+            'relation_more' => $validated['relation_more'],
             'access_start' => $validated['access_start'],
             'access_end' => $validated['access_end'],
             'department' => $validated['department'],
+            'department_more' => $validated['department_more'],
             'vehicle_number' => $validated['vehicle_number'],
             'usual_entry_time' => $validated['usual_entry_time'],
             'usual_exit_time' => $validated['usual_exit_time'],
@@ -249,6 +265,24 @@ class RegisterVisitorController extends Controller
             'visitor' => $visitor,
         ]);
     }
+
+    public function storeReaction(Request $request)
+{
+    $request->validate([
+        'visitor_id' => 'required|string',
+        'rating' => 'required',
+        'feedback' => 'required|string',
+    ]);
+
+    // Simpan ke database (atau sesuaikan dengan kebutuhan)
+    Reaction::create([
+        'visitor_id' => $request->visitor_id,
+        'name' => $request->rating,
+        'note' => $request->feedback,
+    ]);
+
+    return back()->with('success', 'Terima kasih atas feedback Anda!');
+}
 
     public function successOneTime()
     {

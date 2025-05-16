@@ -16,7 +16,7 @@
         </p>
 
         <h4>Status Pendaftaran: Menunggu Persetujuan</h4>
-        <p>Pendaftaran anda sedang dalam proses review oleh departemen terkait. Kami akan mengirimkan
+        <p>Pendaftaran anda sedang dalam proses review. Kami akan mengirimkan
             email konfirmasi dalam 24 jam kerja.</p>
         <p>Cek email Anda secara berkala untuk informasi selanjutnya</p>
 
